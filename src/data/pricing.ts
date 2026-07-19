@@ -75,7 +75,7 @@ export const CLIP_MONTHLY_TIERS: ClipTier[] = [
     aLaCarte: '£320',
     price: '£280/mo',
     saving: '12% saving',
-    paymentLink: 'https://buy.stripe.com/REPLACE_STARTER',
+    paymentLink: 'https://buy.stripe.com/8x2cN67IJ5Zz4YzddaafS01',
   },
   {
     name: 'Growth',
@@ -83,7 +83,7 @@ export const CLIP_MONTHLY_TIERS: ClipTier[] = [
     aLaCarte: '£640',
     price: '£540/mo',
     saving: '15% saving',
-    paymentLink: 'https://buy.stripe.com/REPLACE_GROWTH',
+    paymentLink: 'https://buy.stripe.com/dRmbJ28MNbjTdv55KIafS02',
   },
   {
     name: 'Full Rollout',
@@ -91,9 +91,9 @@ export const CLIP_MONTHLY_TIERS: ClipTier[] = [
     aLaCarte: '£960',
     price: '£780/mo',
     saving: '19% saving',
-    paymentLink: 'https://buy.stripe.com/REPLACE_FULL_ROLLOUT',
+    paymentLink: 'https://buy.stripe.com/4gM3cw6EF3Rr3Uv4GEafS03',
   },
 ];
 
 export const SINGLE_CLIP_PRICE = '£80';
-export const SINGLE_CLIP_PAYMENT_LINK = 'https://buy.stripe.com/REPLACE_SINGLE_CLIP';
+export const SINGLE_CLIP_PAYMENT_LINK = 'https://buy.stripe.com/cNi28s4wxew51MnddaafS00';
