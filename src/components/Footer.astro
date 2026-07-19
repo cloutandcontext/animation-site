@@ -1,0 +1,115 @@
+---
+import Logo from './Logo.astro';
+import { SITE } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <Logo variant="wordmark" />
+      <p class="text-muted footer-tag">Animated music videos &amp; social clips for UK artists.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Site</h3>
+      <ul class="footer-list">
+        <li><a href="/music-videos/">Music Videos</a></li>
+        <li><a href="/clips/">Clips &amp; Packages</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/faq/">FAQ &amp; Terms</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Legal</h3>
+      <ul class="footer-list">
+        <li><a href="/privacy/">Privacy &amp; Cookies</a></li>
+        <li><a href="/faq/#terms">Terms of Service</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <ul class="footer-list">
+        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        <li><a href={SITE.social.instagram} rel="noopener noreferrer" target="_blank">Instagram</a></li>
+        <li><a href={SITE.social.tiktok} rel="noopener noreferrer" target="_blank">TikTok</a></li>
+        <li><a href={SITE.social.youtube} rel="noopener noreferrer" target="_blank">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p class="text-muted">&copy; {year} Clout &amp; Context Animation. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--c-border);
+    padding-block: var(--space-16) var(--space-8);
+    background: var(--c-surface);
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .footer-tag {
+    margin-top: var(--space-4);
+    max-width: 32ch;
+  }
+
+  .footer-col h3 {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer-list a {
+    color: var(--c-white);
+  }
+
+  .footer-list a:hover {
+    color: var(--c-cyan);
+  }
+
+  .footer-bottom {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--c-border);
+  }
+
+  .footer-bottom p {
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 860px) {
+    .footer-inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

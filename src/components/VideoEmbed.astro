@@ -1,0 +1,77 @@
+---
+import type { Platform } from '../data/work';
+
+interface Props {
+  platform: Platform;
+  id: string;
+  title: string;
+  orientation?: 'horizontal' | 'vertical';
+  autoplay?: boolean;
+  class?: string;
+}
+
+const { platform, id, title, orientation = 'horizontal', autoplay = false, class: className = '' } = Astro.props;
+
+const src =
+  platform === 'vimeo'
+    ? `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0${autoplay ? '&autoplay=1&muted=1&loop=1' : ''}`
+    : `https://www.youtube-nocookie.com/embed/${id}?rel=0${autoplay ? '&autoplay=1&mute=1&loop=1' : ''}`;
+
+const frameClass = orientation === 'vertical' ? 'video-frame is-vertical' : 'video-frame';
+---
+
+<div class={`${frameClass} ${className}`} data-video-embed data-src={src} data-title={title}>
+  <button type="button" class="video-play" aria-label={`Play ${title}`}>
+    <span class="video-play-icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M6 4L18 11L6 18V4Z" fill="currentColor" />
+      </svg>
+    </span>
+  </button>
+</div>
+
+<style>
+  .video-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .video-play {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gradient-brand);
+    color: var(--c-black);
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  function initVideoEmbeds() {
+    document.querySelectorAll<HTMLElement>('[data-video-embed]').forEach((frame) => {
+      if (frame.dataset.bound) return;
+      frame.dataset.bound = '1';
+      frame.addEventListener('click', () => {
+        const src = frame.dataset.src;
+        const title = frame.dataset.title ?? 'video';
+        if (!src) return;
+        const iframe = document.createElement('iframe');
+        iframe.src = src;
+        iframe.title = title;
+        iframe.allow = 'autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media';
+        iframe.allowFullscreen = true;
+        iframe.loading = 'lazy';
+        frame.replaceChildren(iframe);
+      });
+    });
+  }
+
+  initVideoEmbeds();
+  document.addEventListener('astro:page-load', initVideoEmbeds);
+</script>

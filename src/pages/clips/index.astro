@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { CLIP_MONTHLY_TIERS, SINGLE_CLIP_PRICE, SINGLE_CLIP_PAYMENT_LINK } from '../../data/pricing';
+import { CLIP_WORK } from '../../data/work';
+---
+
+<BaseLayout
+  title="Social Media Clips & Monthly Packages"
+  description="Animated social clips for UK artists from £80, plus monthly packages from £280/mo. Vertical and square delivery. Checkout on-site via Stripe."
+>
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Clips &amp; Packages</span>
+        <h1>Social clips that keep you posting</h1>
+      </div>
+      <p class="text-muted section-intro">
+        Character animation, lip sync, motion graphics and sound effects — delivered in vertical and square
+        formats from one job. Buy a single clip or subscribe to a monthly package below.
+      </p>
+    </div>
+  </section>
+
+  <section class="single-clip-section">
+    <div class="container">
+      <div class="card single-clip-card">
+        <div>
+          <h2>Single Clips</h2>
+          <p class="text-muted">15 seconds to 1 minute. One revision included. Great for testing the quality before committing to a package.</p>
+        </div>
+        <div class="single-clip-buy">
+          <p class="single-clip-price">{SINGLE_CLIP_PRICE}</p>
+          <a href={SINGLE_CLIP_PAYMENT_LINK} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            Buy a single clip
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="packages" class="tiers-section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Monthly packages</span>
+        <h2>Two posts a week, every week</h2>
+      </div>
+      <p class="text-muted section-intro">
+        Paid upfront each month. 3-month minimum, then rolling. Unused clips don't roll over. Rush requests
+        still carry the standard +25–50% fee.
+      </p>
+
+      <div class="grid grid-3 tiers-grid">
+        {CLIP_MONTHLY_TIERS.map((tier) => (
+          <article class={`card tier-card ${tier.name === 'Growth' ? 'is-featured' : ''}`}>
+            {tier.name === 'Growth' && <span class="badge tier-badge">Most popular</span>}
+            <h3>{tier.name}</h3>
+            <p class="tier-clips">{tier.clipsPerMonth} clips / month</p>
+            <p class="tier-price">{tier.price}</p>
+            <p class="text-muted tier-saving">{tier.saving} vs. à la carte ({tier.aLaCarte})</p>
+            <ul class="tier-includes">
+              <li>Character animation &amp; lip sync</li>
+              <li>Motion graphics &amp; sound effects</li>
+              <li>One revision per clip</li>
+              <li>Vertical + square delivery</li>
+            </ul>
+            <a href={tier.paymentLink} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+              Subscribe to {tier.name}
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <p class="text-muted stripe-note">
+        Checkout is handled securely by Stripe. You'll be able to manage or cancel your subscription from the
+        confirmation email Stripe sends after payment.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Example work</span>
+        <h2>Recent clips</h2>
+      </div>
+      <div class="grid grid-3">
+        {CLIP_WORK.map((item) => <WorkCard item={item} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="terms-section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Good to know</span>
+        <h2>Terms for monthly packages</h2>
+      </div>
+      <ul class="factor-list">
+        <li>3-month minimum commitment, then rolling monthly</li>
+        <li>Paid upfront each month, not on delivery</li>
+        <li>Unused clips do not roll over to the next month</li>
+        <li>Rush requests carry the standard rush fee (+25–50%)</li>
+        <li>Full terms and revision policy on the <a href="/faq/#terms">FAQ &amp; Terms page</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-cta">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Not sure which tier?</span>
+        <h2>Ask us first</h2>
+      </div>
+      <p class="text-muted section-intro">If you're not sure how many clips you need, send an enquiry and we'll recommend a tier.</p>
+      <a href="/#contact" class="btn btn-secondary">Go to the enquiry form</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-intro {
+    max-width: 62ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .single-clip-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+
+  .single-clip-buy {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .single-clip-price {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    margin: 0;
+  }
+
+  .tiers-section {
+    background: var(--c-surface);
+  }
+
+  .tiers-grid {
+    align-items: stretch;
+    margin-bottom: var(--space-8);
+  }
+
+  .tier-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    position: relative;
+  }
+
+  .tier-card.is-featured {
+    border-color: var(--c-cyan);
+  }
+
+  .tier-badge {
+    position: absolute;
+    top: var(--space-6);
+    right: var(--space-6);
+  }
+
+  .tier-clips {
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .tier-price {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .tier-saving {
+    margin-bottom: var(--space-2);
+  }
+
+  .tier-includes {
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    color: var(--c-muted);
+  }
+
+  .tier-card .btn {
+    margin-top: auto;
+  }
+
+  .stripe-note {
+    font-size: 0.85rem;
+    max-width: 60ch;
+  }
+
+  .factor-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    color: var(--c-muted);
+    max-width: 70ch;
+  }
+</style>

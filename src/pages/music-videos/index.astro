@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { MUSIC_VIDEO_TIERS } from '../../data/pricing';
+import { MUSIC_VIDEO_WORK } from '../../data/work';
+---
+
+<BaseLayout
+  title="Animated Music Videos"
+  description="Four tiers of animated music videos for UK artists — from £300 visualisers to £3,000 premium cinematic pieces. Request a quote."
+>
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Music Videos</span>
+        <h1>Animated music videos, priced by scope</h1>
+      </div>
+      <p class="text-muted section-intro">
+        Every tier below is a starting price — the exact quote depends on length, characters, environments and
+        turnaround. Every music video quote can include a clips package for the release rollout.
+      </p>
+    </div>
+  </section>
+
+  <section class="tiers-section">
+    <div class="container">
+      <div class="grid grid-2 tiers-grid">
+        {MUSIC_VIDEO_TIERS.map((tier) => (
+          <article class={`card tier-card ${tier.featured ? 'is-featured' : ''}`}>
+            {tier.featured && <span class="badge tier-badge">Most popular</span>}
+            <h2>{tier.name}</h2>
+            <p class="tier-price">{tier.price}</p>
+            <p class="text-muted">{tier.tagline}</p>
+            <ul class="tier-includes">
+              {tier.includes.map((line) => <li>{line}</li>)}
+            </ul>
+            <a href="#contact" class="btn btn-primary">Request a quote</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Example work</span>
+        <h2>See it in motion</h2>
+      </div>
+      <div class="grid grid-2">
+        {MUSIC_VIDEO_WORK.map((item) => <WorkCard item={item} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-factors-section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Quoting</span>
+        <h2>What affects a quote</h2>
+      </div>
+      <div class="grid grid-2">
+        <ul class="factor-list">
+          <li>Length of the video and how much of the track is covered</li>
+          <li>Number of characters and environments</li>
+          <li>Lip sync, camera movement and VFX complexity</li>
+          <li>Number of revisions beyond what's included</li>
+        </ul>
+        <ul class="factor-list">
+          <li>Turnaround time — rush delivery carries a fee where available</li>
+          <li>Custom sound design or subtitles</li>
+          <li>Whether a clips package is bundled in for the release rollout</li>
+          <li>Usage rights beyond the standard terms</li>
+        </ul>
+      </div>
+      <p class="text-muted rights-note">
+        Standard terms: you own the finished animation outright. Clout &amp; Context retains the right to
+        use it for promotion and portfolio — see the <a href="/faq/#terms">terms page</a> for the full wording.
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-cta">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Get a quote</span>
+        <h2>Tell us about your track</h2>
+      </div>
+      <p class="text-muted section-intro">No pricing calculator here on purpose — every job is quoted properly. Send the details and you'll hear back within 24 hours.</p>
+      <a href="/#contact" class="btn btn-primary">Go to the enquiry form</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-intro {
+    max-width: 62ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .tiers-grid {
+    align-items: stretch;
+  }
+
+  .tier-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    position: relative;
+  }
+
+  .tier-card.is-featured {
+    border-color: var(--c-cyan);
+  }
+
+  .tier-badge {
+    position: absolute;
+    top: var(--space-6);
+    right: var(--space-6);
+  }
+
+  .tier-price {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .tier-includes {
+    margin: var(--space-2) 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    color: var(--c-muted);
+  }
+
+  .tier-card .btn {
+    align-self: flex-start;
+    margin-top: auto;
+  }
+
+  .quote-factors-section {
+    background: var(--c-surface);
+  }
+
+  .factor-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    color: var(--c-muted);
+  }
+
+  .rights-note {
+    margin-top: var(--space-8);
+  }
+
+  .contact-cta {
+    text-align: left;
+  }
+</style>

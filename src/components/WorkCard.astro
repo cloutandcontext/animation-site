@@ -1,0 +1,33 @@
+---
+import VideoEmbed from './VideoEmbed.astro';
+import type { WorkItem } from '../data/work';
+
+interface Props {
+  item: WorkItem;
+}
+const { item } = Astro.props;
+---
+
+<article class="work-card">
+  <VideoEmbed platform={item.platform} id={item.id} title={item.title} orientation={item.orientation} />
+  <div class="work-meta">
+    <p class="work-artist">{item.artist}</p>
+    <p class="work-package text-muted">{item.package}</p>
+  </div>
+</article>
+
+<style>
+  .work-meta {
+    padding-top: var(--space-3);
+  }
+
+  .work-artist {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .work-package {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+</style>

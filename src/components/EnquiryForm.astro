@@ -1,0 +1,140 @@
+---
+import { SITE } from '../data/site';
+---
+
+<form
+  class="enquiry-form"
+  action={SITE.formspreeEndpoint}
+  method="POST"
+  data-enquiry-form
+>
+  <input type="hidden" name="_subject" value="New enquiry from cloutandcontext.com" />
+
+  <!-- Spam honeypot — bots fill this in, humans never see it -->
+  <div class="honeypot-field" aria-hidden="true">
+    <label for="company">Leave this field blank</label>
+    <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="grid grid-2">
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required autocomplete="name" />
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required autocomplete="email" />
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="field">
+      <label for="handle">Instagram / artist handle</label>
+      <input type="text" id="handle" name="handle" placeholder="@yourname" />
+    </div>
+    <div class="field">
+      <label for="project_type">Project type</label>
+      <select id="project_type" name="project_type" required>
+        <option value="">Select one</option>
+        <option value="Music Video">Music Video</option>
+        <option value="Clips Package">Clips Package</option>
+        <option value="Single Clips">Single Clips</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="field">
+      <label for="budget">Budget range</label>
+      <select id="budget" name="budget">
+        <option value="">Select one</option>
+        <option value="Under £300">Under £300</option>
+        <option value="£300 - £600">£300 - £600</option>
+        <option value="£600 - £1,000">£600 - £1,000</option>
+        <option value="£1,000 - £3,000">£1,000 - £3,000</option>
+        <option value="£3,000+">£3,000+</option>
+        <option value="Not sure yet">Not sure yet</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="deadline">Release date or deadline</label>
+      <input type="text" id="deadline" name="deadline" placeholder="e.g. 12 Sept, or flexible" />
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="5" required placeholder="Tell us about the track and what you're after"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block">Send enquiry</button>
+
+  <p class="form-success text-muted" data-form-success hidden>
+    Thanks — you'll hear back within 24 hours.
+  </p>
+  <p class="form-error text-muted" data-form-error hidden>
+    Something went wrong sending that — email us directly at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+</form>
+
+<style>
+  .enquiry-form {
+    max-width: 640px;
+  }
+
+  .form-success {
+    margin-top: var(--space-4);
+    color: var(--c-cyan);
+  }
+
+  .form-error {
+    margin-top: var(--space-4);
+    color: var(--c-magenta);
+  }
+</style>
+
+<script>
+  function initEnquiryForm() {
+    const form = document.querySelector<HTMLFormElement>('[data-enquiry-form]');
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = '1';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const successEl = form.querySelector<HTMLElement>('[data-form-success]');
+      const errorEl = form.querySelector<HTMLElement>('[data-form-error]');
+      errorEl?.setAttribute('hidden', '');
+
+      const data = new FormData(form);
+      // Honeypot tripped — silently pretend success, drop the submission.
+      if (String(data.get('company') ?? '').length > 0) {
+        form.reset();
+        form.hidden = true;
+        successEl?.removeAttribute('hidden');
+        return;
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          form.reset();
+          form.hidden = true;
+          successEl?.removeAttribute('hidden');
+        } else {
+          errorEl?.removeAttribute('hidden');
+        }
+      } catch {
+        errorEl?.removeAttribute('hidden');
+      }
+    });
+  }
+
+  initEnquiryForm();
+  document.addEventListener('astro:page-load', initEnquiryForm);
+</script>

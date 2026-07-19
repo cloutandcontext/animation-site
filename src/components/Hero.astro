@@ -1,0 +1,187 @@
+---
+interface Props {
+  vimeoId: string;
+}
+const { vimeoId } = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero-media" data-hero-media data-vimeo-id={vimeoId}>
+    <div class="hero-poster" data-hero-poster aria-hidden="true"></div>
+  </div>
+
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="container hero-content">
+    <p class="eyebrow">Cinematic animation for UK artists</p>
+    <h1>Animated music videos and social clips for UK artists.</h1>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn-primary">See the work</a>
+      <a href="#contact" class="btn btn-secondary">Start a project</a>
+    </div>
+  </div>
+
+  <button type="button" class="sound-toggle" data-sound-toggle aria-pressed="false">
+    <span data-sound-label>Sound off</span>
+  </button>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background: var(--c-black);
+  }
+
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-media :global(iframe) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw; /* 16:9 */
+    min-height: 100%;
+    min-width: 177.78vh; /* 16:9 */
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
+  }
+
+  .hero-poster {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(0, 232, 248, 0.12), transparent 55%),
+      radial-gradient(circle at 80% 70%, rgba(248, 24, 120, 0.12), transparent 55%), var(--c-black);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.55) 40%, rgba(10, 10, 10, 0.92) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding-bottom: var(--space-24);
+    max-width: 760px;
+  }
+
+  .eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-cyan);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-content h1 {
+    margin-bottom: var(--space-8);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .sound-toggle {
+    position: absolute;
+    z-index: 2;
+    right: var(--space-6);
+    bottom: var(--space-6);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid var(--c-border);
+    color: var(--c-white);
+    border-radius: 999px;
+    padding: 0.6em 1.1em;
+    font-size: 0.85rem;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+  }
+
+  .sound-toggle:hover {
+    border-color: var(--c-cyan);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      min-height: 78vh;
+    }
+  }
+</style>
+
+<script>
+  function initHero() {
+    const mediaEl = document.querySelector<HTMLElement>('[data-hero-media]');
+    const toggleBtn = document.querySelector<HTMLButtonElement>('[data-sound-toggle]');
+    const label = document.querySelector<HTMLElement>('[data-sound-label]');
+    if (!mediaEl || mediaEl.dataset.bound) return;
+    mediaEl.dataset.bound = '1';
+    const media = mediaEl;
+
+    const vimeoId = media.dataset.vimeoId;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let player: any = null;
+
+    function mountPlayer() {
+      if (!vimeoId) return;
+      const iframe = document.createElement('iframe');
+      const autoplayParam = reduceMotion ? '' : '&autoplay=1';
+      iframe.src = `https://player.vimeo.com/video/${vimeoId}?background=0&muted=1&loop=1&controls=0&title=0&byline=0&portrait=0${autoplayParam}`;
+      iframe.allow = 'autoplay; fullscreen';
+      iframe.setAttribute('title', 'Clout & Context showreel');
+      media.appendChild(iframe);
+
+      const script = document.createElement('script');
+      script.src = 'https://player.vimeo.com/api/player.js';
+      script.onload = () => {
+        // @ts-expect-error — global provided by player.js
+        player = new Vimeo.Player(iframe);
+      };
+      document.body.appendChild(script);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              mountPlayer();
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(media);
+    } else {
+      mountPlayer();
+    }
+
+    toggleBtn?.addEventListener('click', () => {
+      if (!player) return;
+      const isPressed = toggleBtn.getAttribute('aria-pressed') === 'true';
+      player.setMuted(isPressed).then(() => {
+        toggleBtn.setAttribute('aria-pressed', String(!isPressed));
+        if (label) label.textContent = isPressed ? 'Sound off' : 'Sound on';
+      });
+    });
+  }
+
+  initHero();
+  document.addEventListener('astro:page-load', initHero);
+</script>

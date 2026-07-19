@@ -1,0 +1,191 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+---
+
+<BaseLayout
+  title="FAQ & Terms"
+  description="Turnaround times, revision policy, deposit terms, rush fees, file formats and usage rights for Clout & Context Animation."
+>
+  <section class="faq-hero">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">FAQ</span>
+        <h1>Frequently asked questions</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>What's the turnaround time?</summary>
+          <p class="text-muted">
+            Standard turnaround varies by tier — visualisers and Hook Videos typically turn around faster than
+            Story-Based or Premium Cinematic pieces, which involve more scenes and revisions. Your quote will
+            include a specific delivery date once the storyboard is signed off. Clip packages are scheduled
+            monthly once the 3-month minimum is agreed.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How many revisions do I get?</summary>
+          <p class="text-muted">
+            Performance Visualiser and Hook Video include <strong>one revision</strong>. Story-Based and Premium
+            Cinematic include <strong>two revisions</strong>. Clip packages include one revision per clip.
+            Additional revisions beyond what's included are billed at £30–75 depending on scope.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do deposits work?</summary>
+          <p class="text-muted">
+            Music videos and custom-quoted work are booked with a <strong>50% deposit</strong> invoiced on
+            agreement, with the balance invoiced on delivery. Monthly clip packages are paid upfront each month,
+            not on delivery.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What happens if I go quiet mid-project?</summary>
+          <p class="text-muted">
+            We'll follow up and hold your slot for a reasonable period, but ongoing work pauses if we're waiting
+            on feedback, assets or sign-off from you. If a project goes unresponsive for an extended period, the
+            deposit is retained to cover the work already completed and the reserved production slot, and the
+            project is closed. Get in touch any time to pick it back up.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What file formats do you deliver?</summary>
+          <p class="text-muted">
+            Standard delivery is H.264 MP4 at the resolution and aspect ratio agreed for the job — typically
+            1080p landscape for music videos, and vertical <em>and</em> square formats for social clips so you
+            can post to TikTok, Reels and Shorts from one deliverable. Other formats (ProRes, specific codecs for
+            a broadcaster or platform) can be arranged on request.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>What if I need it faster?</summary>
+          <p class="text-muted">
+            Rush delivery is available on Story-Based and Premium Cinematic music videos, and on clip packages,
+            for an additional <strong>25–50%</strong> depending on how much the timeline is compressed. Hook
+            Video is standard turnaround only — there's no rush option on that tier, as the scope is already
+            capped to keep it fast and affordable.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Do you sell music videos and clips separately?</summary>
+          <p class="text-muted">
+            Yes — clips packages and single clips can be bought independently of a music video. But every music
+            video quote can include a clips package for the release rollout, cut from the finished animation, so
+            you've got promo content ready the moment the video goes live.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="terms" class="terms-section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Legal</span>
+        <h2>Terms of Service</h2>
+      </div>
+
+      <div class="terms-copy">
+        <h3>Deposits &amp; payment</h3>
+        <p class="text-muted">
+          Custom-quoted work (music videos, one-off add-ons) requires a 50% deposit before work begins, invoiced
+          via Stripe. The balance is invoiced on delivery. Monthly clip packages are paid upfront at the start of
+          each billing period, with a 3-month minimum commitment before switching to rolling monthly. Unused
+          clips in a monthly package do not roll over to the following month.
+        </p>
+
+        <h3>Revisions</h3>
+        <p class="text-muted">
+          Performance Visualiser and Hook Video include one revision; Story-Based and Premium Cinematic include
+          two; clip packages include one revision per clip. Additional revisions are billed at £30–75 depending
+          on complexity, agreed before work begins.
+        </p>
+
+        <h3>Deadlines &amp; rush work</h3>
+        <p class="text-muted">
+          Delivery dates are agreed once a storyboard (for music videos) or brief (for clips) is signed off.
+          Rush delivery, where available, carries a fee of 25–50% on top of the standard price, reflecting
+          compressed scheduling.
+        </p>
+
+        <h3>Rights &amp; usage</h3>
+        <p class="text-muted">
+          The client owns the finished animation delivered to them. <strong>Clout &amp; Context retains the
+          right to use the work for promotion and portfolio purposes</strong> — including the showreel, website,
+          Instagram, TikTok, YouTube and pitches to prospective clients. Where a client has a specific reason to
+          delay this (an unreleased track, a label embargo), a hold period can be agreed so the work is shown
+          only after the release date, rather than the right being waived entirely.
+        </p>
+
+        <h3>Cancellations &amp; unresponsive projects</h3>
+        <p class="text-muted">
+          If a client becomes unresponsive for an extended period after work has started, the deposit is
+          retained to cover work completed and the production slot reserved. Monthly clip packages can be
+          cancelled after the 3-month minimum with notice ahead of the next billing date.
+        </p>
+
+        <h3>Contact</h3>
+        <p class="text-muted">
+          Questions about these terms — <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 72ch;
+  }
+
+  .faq-item {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+  }
+
+  .faq-item summary {
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .faq-item summary::marker {
+    color: var(--c-cyan);
+  }
+
+  .faq-item p {
+    margin-top: var(--space-4);
+    margin-bottom: 0;
+  }
+
+  .terms-section {
+    background: var(--c-surface);
+  }
+
+  .terms-copy {
+    max-width: 72ch;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .terms-copy h3 {
+    margin-top: var(--space-8);
+  }
+</style>
