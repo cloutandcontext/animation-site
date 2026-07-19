@@ -11,8 +11,7 @@ export const SITE = {
   handle: '@CloutAndContext',
   description:
     'Animated music videos and social clips for UK independent artists. Cinematic 2D urban animation, quoted jobs and monthly clip packages.',
-  // Formspree endpoint — replace XXXXXXXX with the real form ID before launch.
-  formspreeEndpoint: 'https://formspree.io/f/XXXXXXXX',
+  formspreeEndpoint: 'https://formspree.io/f/mdaqzoyj',
 };
 
 export const NAV_LINKS = [
