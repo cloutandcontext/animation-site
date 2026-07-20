@@ -1,14 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import WorkCard from '../../components/WorkCard.astro';
-import { CLIP_MONTHLY_TIERS, SINGLE_CLIP_PRICE, SINGLE_CLIP_PAYMENT_LINK } from '../../data/pricing';
-import { CLIP_WORK } from '../../data/work';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AnimationsSubNav from '../../../components/AnimationsSubNav.astro';
+import WorkCard from '../../../components/WorkCard.astro';
+import { CLIP_MONTHLY_TIERS, SINGLE_CLIP_PRICE, SINGLE_CLIP_PAYMENT_LINK } from '../../../data/pricing';
+import { CLIP_WORK } from '../../../data/work';
 ---
 
 <BaseLayout
   title="Social Media Clips & Monthly Packages"
   description="Animated social clips for UK artists from £80, plus monthly packages from £280/mo. Vertical and square delivery. Checkout on-site via Stripe."
 >
+  <AnimationsSubNav active="clips" />
+
   <section class="page-hero">
     <div class="container">
       <div class="section-heading">
@@ -101,7 +104,7 @@ import { CLIP_WORK } from '../../data/work';
         <li>Paid upfront each month, not on delivery</li>
         <li>Unused clips do not roll over to the next month</li>
         <li>Rush requests carry the standard rush fee (+25–50%)</li>
-        <li>Full terms and revision policy on the <a href="/faq/#terms">FAQ &amp; Terms page</a></li>
+        <li>Full terms and revision policy on the <a href="/animations/terms/">Terms &amp; FAQ page</a></li>
       </ul>
     </div>
   </section>
@@ -113,7 +116,7 @@ import { CLIP_WORK } from '../../data/work';
         <h2>Ask us first</h2>
       </div>
       <p class="text-muted section-intro">If you're not sure how many clips you need, send an enquiry and we'll recommend a tier.</p>
-      <a href="/#contact" class="btn btn-secondary">Go to the enquiry form</a>
+      <a href="/animations/#contact" class="btn btn-secondary">Go to the enquiry form</a>
     </div>
   </section>
 </BaseLayout>

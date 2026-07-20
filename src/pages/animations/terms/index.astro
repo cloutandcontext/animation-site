@@ -1,12 +1,15 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { SITE } from '../../data/site';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AnimationsSubNav from '../../../components/AnimationsSubNav.astro';
+import { SITE } from '../../../data/site';
 ---
 
 <BaseLayout
-  title="FAQ & Terms"
+  title="Terms & FAQ"
   description="Turnaround times, revision policy, deposit terms, rush fees, file formats and usage rights for Clout & Context Animation."
 >
+  <AnimationsSubNav active="terms" />
+
   <section class="faq-hero">
     <div class="container">
       <div class="section-heading">

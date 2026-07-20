@@ -1,0 +1,243 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AnimationsSubNav from '../../components/AnimationsSubNav.astro';
+import Hero from '../../components/Hero.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import EnquiryForm from '../../components/EnquiryForm.astro';
+import { MUSIC_VIDEO_WORK, CLIP_WORK } from '../../data/work';
+import { SITE } from '../../data/site';
+---
+
+<BaseLayout title="Animated Music Videos & Social Clips for UK Artists" description={SITE.animationsDescription}>
+  <AnimationsSubNav active="home" />
+  <Hero vimeoId="76979871" />
+
+  <section id="work">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Portfolio</span>
+        <h2>The work</h2>
+      </div>
+      <p class="text-muted section-intro">Music videos first — then the clips they get cut into.</p>
+
+      <div class="grid grid-2 work-grid">
+        {MUSIC_VIDEO_WORK.map((item) => <WorkCard item={item} />)}
+      </div>
+
+      <h3 class="clips-subheading">Social clips</h3>
+      <div class="grid grid-3">
+        {CLIP_WORK.map((item) => <WorkCard item={item} />)}
+      </div>
+    </div>
+  </section>
+
+  <section id="offers" class="offers-section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">What you get</span>
+        <h2>Two ways to work together</h2>
+      </div>
+
+      <div class="grid grid-2">
+        <article class="card offer-card">
+          <span class="badge">Music Videos</span>
+          <h3>Animated Music Videos</h3>
+          <p class="text-muted">Cinematic 2D animation built around your track — from a visualiser to a full narrative piece.</p>
+          <p class="offer-price">From £300</p>
+          <a href="/animations/music-videos/" class="btn btn-primary">Get a quote</a>
+        </article>
+
+        <article class="card offer-card">
+          <span class="badge">Social Clips</span>
+          <h3>Social Media Clips</h3>
+          <p class="text-muted">Short-form animated clips for TikTok, Reels and Shorts — single clips or a monthly package.</p>
+          <p class="offer-price">From £80/clip or monthly packages</p>
+          <a href="/animations/clips/" class="btn btn-primary">See packages</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Process</span>
+        <h2>How it works</h2>
+      </div>
+
+      <ol class="steps grid grid-4">
+        <li class="card step">
+          <span class="step-number">01</span>
+          <h3>Enquiry</h3>
+          <p class="text-muted">Tell us about the track, the deadline and the budget.</p>
+        </li>
+        <li class="card step">
+          <span class="step-number">02</span>
+          <h3>Quote &amp; deposit</h3>
+          <p class="text-muted">You get a fixed quote and pay a 50% deposit to lock the slot in.</p>
+        </li>
+        <li class="card step">
+          <span class="step-number">03</span>
+          <h3>Storyboard</h3>
+          <p class="text-muted">We plan the shots and get your sign-off before animation starts.</p>
+        </li>
+        <li class="card step">
+          <span class="step-number">04</span>
+          <h3>Delivery</h3>
+          <p class="text-muted">Final files delivered, balance invoiced, portfolio rights confirmed.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="trust" class="trust-section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Proof</span>
+        <h2>Why artists come back</h2>
+      </div>
+
+      <div class="grid grid-2">
+        <blockquote class="card testimonial">
+          <p>"Add a real testimonial from the repeat client here — what made them come back, in their own words."</p>
+          <cite class="text-muted">— Client name, artist</cite>
+        </blockquote>
+
+        <div class="card channel-proof">
+          <h3>Backed by the channel</h3>
+          <p class="text-muted">
+            Clout &amp; Context is a live audience of UK artists and fans — the same animation style that holds
+            attention on the channel is what goes into every client project.
+          </p>
+          <a href={SITE.social.youtube} target="_blank" rel="noopener noreferrer">Watch the channel</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">About</span>
+        <h2>Animation from inside the scene</h2>
+      </div>
+
+      <div class="grid grid-2 about-grid">
+        <p class="about-copy">
+          Clout &amp; Context Animation is run alongside the Clout &amp; Context channel — built by someone who
+          covers UK independent music every day, not an animator taking on music videos as a side category.
+          That's the credential: knowing the scene, the artists and the sound, and building animation that
+          holds an audience for a full track rather than a few seconds of scroll.
+        </p>
+        <p class="about-copy">
+          Every project — a £300 visualiser or a £3,000 cinematic piece — gets the same attention to what
+          actually gets an artist's release watched, shared and remembered.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Get in touch</span>
+        <h2>Start a project</h2>
+      </div>
+      <p class="text-muted section-intro">Tell us about your track or your rollout — you'll hear back within 24 hours.</p>
+      <EnquiryForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-intro {
+    max-width: 60ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .work-grid {
+    margin-bottom: var(--space-12);
+  }
+
+  .clips-subheading {
+    margin-bottom: var(--space-6);
+  }
+
+  .offers-section {
+    background: var(--c-surface);
+  }
+
+  .offer-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .offer-card .badge {
+    align-self: flex-start;
+    margin-bottom: var(--space-2);
+  }
+
+  .offer-price {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    margin-bottom: var(--space-4);
+  }
+
+  .offer-card .btn {
+    align-self: flex-start;
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .step-number {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .trust-section {
+    background: var(--c-surface);
+  }
+
+  .testimonial {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  .testimonial p {
+    font-size: 1.1rem;
+    font-style: italic;
+  }
+
+  .channel-proof {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+
+  .about-grid {
+    align-items: start;
+  }
+
+  .about-copy {
+    font-size: 1.05rem;
+    max-width: 55ch;
+  }
+</style>

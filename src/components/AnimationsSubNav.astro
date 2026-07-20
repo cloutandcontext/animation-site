@@ -1,0 +1,98 @@
+---
+import { ANIMATIONS_NAV } from '../data/site';
+
+interface Props {
+  active?: 'home' | 'music-videos' | 'clips' | 'terms';
+}
+const { active } = Astro.props;
+
+const activeHref: Record<string, string> = {
+  'music-videos': '/animations/music-videos/',
+  clips: '/animations/clips/',
+  terms: '/animations/terms/',
+};
+---
+
+<div class="animations-subnav">
+  <div class="container animations-subnav-inner">
+    <a href="/animations/" class="subnav-tag">
+      <span class="subnav-eyebrow">Clout &amp; Context</span>
+      <span class="subnav-title">Animations</span>
+    </a>
+    <nav class="subnav-links">
+      {ANIMATIONS_NAV.map((link) => (
+        <a href={link.href} aria-current={active && activeHref[active] === link.href ? 'page' : undefined}>
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</div>
+
+<style>
+  .animations-subnav {
+    background: var(--c-surface);
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .animations-subnav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding-block: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .subnav-tag {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    color: var(--c-white);
+  }
+
+  .subnav-tag:hover {
+    text-decoration: none;
+  }
+
+  .subnav-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+
+  .subnav-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  .subnav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .subnav-links a {
+    font-size: 0.9rem;
+    color: var(--c-muted);
+  }
+
+  .subnav-links a:hover,
+  .subnav-links a[aria-current='page'] {
+    color: var(--c-cyan);
+  }
+
+  @media (max-width: 640px) {
+    .animations-subnav-inner {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .subnav-links {
+      justify-content: center;
+      gap: var(--space-4);
+    }
+  }
+</style>

@@ -1,210 +1,133 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import WorkCard from '../components/WorkCard.astro';
-import EnquiryForm from '../components/EnquiryForm.astro';
-import { MUSIC_VIDEO_WORK, CLIP_WORK } from '../data/work';
+import Logo from '../components/Logo.astro';
 import { SITE } from '../data/site';
 ---
 
-<BaseLayout title="Animated Music Videos & Social Clips for UK Artists">
-  <Hero vimeoId="76979871" />
-
-  <section id="work">
-    <div class="container">
-      <div class="section-heading">
-        <span class="eyebrow">Portfolio</span>
-        <h2>The work</h2>
-      </div>
-      <p class="text-muted section-intro">Music videos first — then the clips they get cut into.</p>
-
-      <div class="grid grid-2 work-grid">
-        {MUSIC_VIDEO_WORK.map((item) => <WorkCard item={item} />)}
-      </div>
-
-      <h3 class="clips-subheading">Social clips</h3>
-      <div class="grid grid-3">
-        {CLIP_WORK.map((item) => <WorkCard item={item} />)}
+<BaseLayout title="Clout & Context" description={SITE.description}>
+  <section class="brand-hero">
+    <div class="brand-hero-glow" aria-hidden="true"></div>
+    <div class="container brand-hero-content">
+      <Logo variant="wordmark" />
+      <h1>UK urban culture, on screen and in motion.</h1>
+      <p class="text-muted brand-hero-copy">
+        Clout &amp; Context is a channel covering UK independent music, and the cinematic 2D animation
+        studio built alongside it — the same eye for the scene, applied to every project.
+      </p>
+      <div class="brand-hero-actions">
+        <a href="/animations/" class="btn btn-primary">Explore the animation studio</a>
+        <a href={SITE.social.youtube} class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Watch the channel</a>
       </div>
     </div>
   </section>
 
-  <section id="offers" class="offers-section">
+  <section id="hub" class="hub-section">
     <div class="container">
       <div class="section-heading">
-        <span class="eyebrow">What you get</span>
-        <h2>Two ways to work together</h2>
+        <span class="eyebrow">Start here</span>
+        <h2>Two sides of the same channel</h2>
       </div>
 
       <div class="grid grid-2">
-        <article class="card offer-card">
-          <span class="badge">Music Videos</span>
-          <h3>Animated Music Videos</h3>
-          <p class="text-muted">Cinematic 2D animation built around your track — from a visualiser to a full narrative piece.</p>
-          <p class="offer-price">From £300</p>
-          <a href="/music-videos/" class="btn btn-primary">Get a quote</a>
-        </article>
-
-        <article class="card offer-card">
-          <span class="badge">Social Clips</span>
-          <h3>Social Media Clips</h3>
-          <p class="text-muted">Short-form animated clips for TikTok, Reels and Shorts — single clips or a monthly package.</p>
-          <p class="offer-price">From £80/clip or monthly packages</p>
-          <a href="/clips/" class="btn btn-primary">See packages</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="how-it-works">
-    <div class="container">
-      <div class="section-heading">
-        <span class="eyebrow">Process</span>
-        <h2>How it works</h2>
-      </div>
-
-      <ol class="steps grid grid-4">
-        <li class="card step">
-          <span class="step-number">01</span>
-          <h3>Enquiry</h3>
-          <p class="text-muted">Tell us about the track, the deadline and the budget.</p>
-        </li>
-        <li class="card step">
-          <span class="step-number">02</span>
-          <h3>Quote &amp; deposit</h3>
-          <p class="text-muted">You get a fixed quote and pay a 50% deposit to lock the slot in.</p>
-        </li>
-        <li class="card step">
-          <span class="step-number">03</span>
-          <h3>Storyboard</h3>
-          <p class="text-muted">We plan the shots and get your sign-off before animation starts.</p>
-        </li>
-        <li class="card step">
-          <span class="step-number">04</span>
-          <h3>Delivery</h3>
-          <p class="text-muted">Final files delivered, balance invoiced, portfolio rights confirmed.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section id="trust" class="trust-section">
-    <div class="container">
-      <div class="section-heading">
-        <span class="eyebrow">Proof</span>
-        <h2>Why artists come back</h2>
-      </div>
-
-      <div class="grid grid-2">
-        <blockquote class="card testimonial">
-          <p>"Add a real testimonial from the repeat client here — what made them come back, in their own words."</p>
-          <cite class="text-muted">— Client name, artist</cite>
-        </blockquote>
-
-        <div class="card channel-proof">
-          <h3>Backed by the channel</h3>
+        <article class="card hub-card">
+          <span class="badge">Animation Studio</span>
+          <h3>Animated Music Videos &amp; Social Clips</h3>
           <p class="text-muted">
-            Clout &amp; Context is a live audience of UK artists and fans — the same animation style that holds
-            attention on the channel is what goes into every client project.
+            Cinematic 2D animation for UK independent artists — quoted music videos and self-serve
+            monthly clip packages. Built by someone who knows the scene from the inside.
           </p>
-          <a href={SITE.social.youtube} target="_blank" rel="noopener noreferrer">Watch the channel</a>
-        </div>
+          <a href="/animations/" class="btn btn-primary">See the work</a>
+        </article>
+
+        <article class="card hub-card">
+          <span class="badge">The Channel</span>
+          <h3>Clout &amp; Context on YouTube</h3>
+          <p class="text-muted">
+            Coverage of UK urban culture, the artists, and the scene — the audience and credibility
+            that every animation project is built on.
+          </p>
+          <a href={SITE.social.youtube} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Watch the channel</a>
+        </article>
       </div>
     </div>
   </section>
 
-  <section id="contact" class="contact-section">
-    <div class="container">
+  <section class="follow-section">
+    <div class="container follow-inner">
       <div class="section-heading">
-        <span class="eyebrow">Get in touch</span>
-        <h2>Start a project</h2>
+        <span class="eyebrow">Follow</span>
+        <h2>Stay in the loop</h2>
       </div>
-      <p class="text-muted section-intro">Tell us about your track or your rollout — you'll hear back within 24 hours.</p>
-      <EnquiryForm />
+      <div class="follow-links">
+        <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Instagram</a>
+        <a href={SITE.social.tiktok} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">TikTok</a>
+        <a href={SITE.social.youtube} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">YouTube</a>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .section-intro {
+  .brand-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .brand-hero-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(0, 232, 248, 0.16), transparent 55%),
+      radial-gradient(circle at 85% 75%, rgba(248, 24, 120, 0.16), transparent 55%), var(--c-black);
+  }
+
+  .brand-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+  }
+
+  .brand-hero-content h1 {
+    margin-top: var(--space-8);
+  }
+
+  .brand-hero-copy {
     max-width: 60ch;
+    font-size: 1.1rem;
     margin-bottom: var(--space-8);
   }
 
-  .work-grid {
-    margin-bottom: var(--space-12);
+  .brand-hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
   }
 
-  .clips-subheading {
-    margin-bottom: var(--space-6);
-  }
-
-  .offers-section {
-    background: var(--c-surface);
-  }
-
-  .offer-card {
+  .hub-card {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
   }
 
-  .offer-card .badge {
+  .hub-card .badge {
     align-self: flex-start;
     margin-bottom: var(--space-2);
   }
 
-  .offer-price {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    margin-bottom: var(--space-4);
-  }
-
-  .offer-card .btn {
+  .hub-card .btn {
     align-self: flex-start;
+    margin-top: var(--space-2);
   }
 
-  .steps {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .step {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .step-number {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    background: var(--gradient-brand);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .trust-section {
+  .follow-section {
     background: var(--c-surface);
   }
 
-  .testimonial {
+  .follow-links {
     display: flex;
-    flex-direction: column;
     gap: var(--space-4);
-    margin: 0;
-  }
-
-  .testimonial p {
-    font-size: 1.1rem;
-    font-style: italic;
-  }
-
-  .channel-proof {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    justify-content: center;
+    flex-wrap: wrap;
   }
 </style>

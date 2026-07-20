@@ -1,14 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import WorkCard from '../../components/WorkCard.astro';
-import { MUSIC_VIDEO_TIERS } from '../../data/pricing';
-import { MUSIC_VIDEO_WORK } from '../../data/work';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AnimationsSubNav from '../../../components/AnimationsSubNav.astro';
+import WorkCard from '../../../components/WorkCard.astro';
+import { MUSIC_VIDEO_TIERS } from '../../../data/pricing';
+import { MUSIC_VIDEO_WORK } from '../../../data/work';
 ---
 
 <BaseLayout
   title="Animated Music Videos"
   description="Four tiers of animated music videos for UK artists — from £300 visualisers to £3,000 premium cinematic pieces. Request a quote."
 >
+  <AnimationsSubNav active="music-videos" />
+
   <section class="page-hero">
     <div class="container">
       <div class="section-heading">
@@ -34,7 +37,7 @@ import { MUSIC_VIDEO_WORK } from '../../data/work';
             <ul class="tier-includes">
               {tier.includes.map((line) => <li>{line}</li>)}
             </ul>
-            <a href="#contact" class="btn btn-primary">Request a quote</a>
+            <a href="/animations/#contact" class="btn btn-primary">Request a quote</a>
           </article>
         ))}
       </div>
@@ -75,7 +78,7 @@ import { MUSIC_VIDEO_WORK } from '../../data/work';
       </div>
       <p class="text-muted rights-note">
         Standard terms: you own the finished animation outright. Clout &amp; Context retains the right to
-        use it for promotion and portfolio — see the <a href="/faq/#terms">terms page</a> for the full wording.
+        use it for promotion and portfolio — see the <a href="/animations/terms/#terms">terms page</a> for the full wording.
       </p>
     </div>
   </section>
@@ -87,7 +90,7 @@ import { MUSIC_VIDEO_WORK } from '../../data/work';
         <h2>Tell us about your track</h2>
       </div>
       <p class="text-muted section-intro">No pricing calculator here on purpose — every job is quoted properly. Send the details and you'll hear back within 24 hours.</p>
-      <a href="/#contact" class="btn btn-primary">Go to the enquiry form</a>
+      <a href="/animations/#contact" class="btn btn-primary">Go to the enquiry form</a>
     </div>
   </section>
 </BaseLayout>
