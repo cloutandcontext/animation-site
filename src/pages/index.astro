@@ -6,6 +6,7 @@ import { SITE } from '../data/site';
 
 <BaseLayout title="Clout & Context" description={SITE.description}>
   <section class="brand-hero">
+    <div class="brand-hero-media" data-brand-hero-media data-id="76979871" aria-hidden="true"></div>
     <div class="brand-hero-glow" aria-hidden="true"></div>
     <div class="container brand-hero-content">
       <Logo variant="wordmark" class="hero-wordmark" />
@@ -71,21 +72,44 @@ import { SITE } from '../data/site';
   .brand-hero {
     position: relative;
     overflow: hidden;
-    min-height: 70vh;
+    min-height: 78vh;
     display: flex;
     align-items: center;
+    background: var(--c-black);
+  }
+
+  .brand-hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #000;
+  }
+
+  .brand-hero-media :global(iframe) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw;
+    min-height: 100%;
+    min-width: 177.78vh;
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
   }
 
   .brand-hero-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 20% 20%, rgba(0, 232, 248, 0.16), transparent 55%),
-      radial-gradient(circle at 85% 75%, rgba(248, 24, 120, 0.16), transparent 55%), var(--c-black);
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.68) 0%, rgba(10, 10, 10, 0.8) 100%),
+      radial-gradient(circle at 20% 20%, rgba(0, 232, 248, 0.14), transparent 55%),
+      radial-gradient(circle at 85% 75%, rgba(248, 24, 120, 0.14), transparent 55%);
   }
 
   .brand-hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 760px;
   }
 
@@ -136,3 +160,43 @@ import { SITE } from '../data/site';
     flex-wrap: wrap;
   }
 </style>
+
+<script>
+  function initBrandHero() {
+    const media = document.querySelector<HTMLElement>('[data-brand-hero-media]');
+    if (!media || media.dataset.bound) return;
+    media.dataset.bound = '1';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const id = media.dataset.id;
+    if (!id) return;
+
+    const mount = () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://player.vimeo.com/video/${id}?background=1&muted=1&loop=1&autoplay=1`;
+      iframe.allow = 'autoplay; fullscreen';
+      iframe.setAttribute('title', 'Clout & Context');
+      media.appendChild(iframe);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              mount();
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(media);
+    } else {
+      mount();
+    }
+  }
+
+  initBrandHero();
+  document.addEventListener('astro:page-load', initBrandHero);
+</script>
