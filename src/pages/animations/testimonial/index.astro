@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AnimationsSubNav from '../../../components/AnimationsSubNav.astro';
+import TestimonialForm from '../../../components/TestimonialForm.astro';
+---
+
+<BaseLayout
+  title="Leave a Testimonial"
+  description="Worked with Clout & Context? Share your experience — approved testimonials are featured on the site."
+>
+  <AnimationsSubNav />
+
+  <section class="testimonial-page">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Testimonials</span>
+        <h1>Worked with us? Say the word</h1>
+      </div>
+      <p class="text-muted section-intro">
+        If we've animated a video or clips for you, a few lines about the experience goes a long way.
+        We review every submission before it goes up — nothing is published automatically.
+      </p>
+      <TestimonialForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-intro {
+    max-width: 60ch;
+    margin-bottom: var(--space-8);
+  }
+</style>

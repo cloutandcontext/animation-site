@@ -1,0 +1,146 @@
+---
+import { SITE } from '../data/site';
+---
+
+<form
+  class="testimonial-form"
+  action={SITE.formspreeEndpoint}
+  method="POST"
+  data-testimonial-form
+>
+  <input type="hidden" name="_subject" value="New testimonial from cloutandcontext.com" />
+  <input type="hidden" name="submission_type" value="Testimonial" />
+
+  <!-- Spam honeypot — bots fill this in, humans never see it -->
+  <div class="honeypot-field" aria-hidden="true">
+    <label for="t_company">Leave this field blank</label>
+    <input type="text" id="t_company" name="company" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="grid grid-2">
+    <div class="field">
+      <label for="t_name">Your name</label>
+      <input type="text" id="t_name" name="name" required autocomplete="name" />
+    </div>
+    <div class="field">
+      <label for="t_handle">Artist name / handle</label>
+      <input type="text" id="t_handle" name="handle" placeholder="@yourname" />
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="field">
+      <label for="t_role">Who are you? <span class="text-muted">(optional)</span></label>
+      <input type="text" id="t_role" name="role" placeholder="e.g. Artist, Manager" />
+    </div>
+    <div class="field">
+      <label for="t_rating">Rating <span class="text-muted">(optional)</span></label>
+      <select id="t_rating" name="rating">
+        <option value="">No rating</option>
+        <option value="5">★★★★★ — Excellent</option>
+        <option value="4">★★★★ — Great</option>
+        <option value="3">★★★ — Good</option>
+        <option value="2">★★ — Okay</option>
+        <option value="1">★ — Poor</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="t_message">Your testimonial</label>
+    <textarea id="t_message" name="message" rows="5" required placeholder="What was it like working with Clout & Context?"></textarea>
+  </div>
+
+  <label class="consent">
+    <input type="checkbox" name="consent" value="yes" required />
+    <span>I'm happy for Clout &amp; Context to publish this testimonial, with my name/handle, on their website and social media.</span>
+  </label>
+
+  <button type="submit" class="btn btn-primary btn-block">Submit testimonial</button>
+
+  <p class="form-success text-muted" data-form-success hidden>
+    Thanks — we'll review it and add it to the site.
+  </p>
+  <p class="form-error text-muted" data-form-error hidden>
+    Something went wrong sending that — email us directly at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+</form>
+
+<style>
+  .testimonial-form {
+    max-width: 640px;
+  }
+
+  .consent {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+    margin-bottom: var(--space-6);
+    font-size: 0.9rem;
+    color: var(--c-muted);
+    cursor: pointer;
+  }
+
+  .consent input {
+    margin-top: 0.25em;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    accent-color: var(--c-cyan);
+  }
+
+  .form-success {
+    margin-top: var(--space-4);
+    color: var(--c-cyan);
+  }
+
+  .form-error {
+    margin-top: var(--space-4);
+    color: var(--c-magenta);
+  }
+</style>
+
+<script>
+  function initTestimonialForm() {
+    const form = document.querySelector<HTMLFormElement>('[data-testimonial-form]');
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = '1';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const successEl = form.querySelector<HTMLElement>('[data-form-success]');
+      const errorEl = form.querySelector<HTMLElement>('[data-form-error]');
+      errorEl?.setAttribute('hidden', '');
+
+      const data = new FormData(form);
+      // Honeypot tripped — silently pretend success, drop the submission.
+      if (String(data.get('company') ?? '').length > 0) {
+        form.reset();
+        form.hidden = true;
+        successEl?.removeAttribute('hidden');
+        return;
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          form.reset();
+          form.hidden = true;
+          successEl?.removeAttribute('hidden');
+        } else {
+          errorEl?.removeAttribute('hidden');
+        }
+      } catch {
+        errorEl?.removeAttribute('hidden');
+      }
+    });
+  }
+
+  initTestimonialForm();
+  document.addEventListener('astro:page-load', initTestimonialForm);
+</script>

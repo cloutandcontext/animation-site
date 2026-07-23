@@ -5,6 +5,7 @@ import Hero from '../../components/Hero.astro';
 import WorkCard from '../../components/WorkCard.astro';
 import EnquiryForm from '../../components/EnquiryForm.astro';
 import { MUSIC_VIDEO_WORK, CLIP_WORK } from '../../data/work';
+import { TESTIMONIALS } from '../../data/testimonials';
 import { SITE } from '../../data/site';
 ---
 
@@ -98,10 +99,17 @@ import { SITE } from '../../data/site';
       </div>
 
       <div class="grid grid-2">
-        <blockquote class="card testimonial">
-          <p>"Add a real testimonial from the repeat client here — what made them come back, in their own words."</p>
-          <cite class="text-muted">— Client name, artist</cite>
-        </blockquote>
+        {TESTIMONIALS.map((t) => (
+          <blockquote class="card testimonial">
+            {t.rating && (
+              <p class="testimonial-stars" aria-label={`${t.rating} out of 5 stars`}>
+                {'★'.repeat(t.rating)}<span class="text-muted">{'★'.repeat(5 - t.rating)}</span>
+              </p>
+            )}
+            <p>&ldquo;{t.quote}&rdquo;</p>
+            <cite class="text-muted">— {t.name}{t.role ? `, ${t.role}` : ''}</cite>
+          </blockquote>
+        ))}
 
         <div class="card channel-proof">
           <h3>Backed by the channel</h3>
@@ -111,7 +119,21 @@ import { SITE } from '../../data/site';
           </p>
           <a href={SITE.social.youtube} target="_blank" rel="noopener noreferrer">Watch the channel</a>
         </div>
+
+        {TESTIMONIALS.length === 0 && (
+          <div class="card invite-card">
+            <h3>Worked with us?</h3>
+            <p class="text-muted">Be the first to leave a testimonial — it takes a minute.</p>
+            <a href="/animations/testimonial/" class="btn btn-secondary">Leave a testimonial</a>
+          </div>
+        )}
       </div>
+
+      {TESTIMONIALS.length > 0 && (
+        <p class="testimonial-cta">
+          <a href="/animations/testimonial/">Worked with us? Leave a testimonial →</a>
+        </p>
+      )}
     </div>
   </section>
 
@@ -225,11 +247,31 @@ import { SITE } from '../../data/site';
     font-style: italic;
   }
 
-  .channel-proof {
+  .testimonial-stars {
+    font-size: 1rem;
+    font-style: normal;
+    letter-spacing: 0.1em;
+    color: var(--c-cyan);
+    margin: 0;
+  }
+
+  .channel-proof,
+  .invite-card {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
     justify-content: center;
+  }
+
+  .invite-card .btn {
+    align-self: flex-start;
+    margin-top: var(--space-2);
+  }
+
+  .testimonial-cta {
+    margin-top: var(--space-8);
+    margin-bottom: 0;
+    font-weight: 600;
   }
 
   .about-grid {
