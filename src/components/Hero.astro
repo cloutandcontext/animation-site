@@ -4,96 +4,63 @@ import type { Platform } from '../data/work';
 interface Props {
   platform: Platform;
   id: string;
+  orientation?: 'landscape' | 'portrait';
 }
-const { platform, id } = Astro.props;
+const { platform, id, orientation = 'landscape' } = Astro.props;
 const poster = platform === 'youtube' ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : null;
+const posterStyle = poster ? `background-image: url(${poster});` : undefined;
 ---
 
-<section class="hero">
-  <div class="hero-media" data-hero-media data-platform={platform} data-id={id}>
-    <div
-      class="hero-poster"
-      data-hero-poster
-      aria-hidden="true"
-      style={poster ? `background-image: url(${poster});` : undefined}
-    >
-    </div>
-  </div>
+{
+  orientation === 'portrait' ? (
+    <section class="hero hero-portrait">
+      <div class="hero-glow" aria-hidden="true" />
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Cinematic animation for UK artists &amp; creators</p>
+          <h1>Animated music videos and social clips for UK artists &amp; creators.</h1>
+          <div class="hero-actions">
+            <a href="#work" class="btn btn-primary">See the work</a>
+            <a href="#contact" class="btn btn-secondary">Start a project</a>
+          </div>
+        </div>
 
-  <div class="hero-overlay" aria-hidden="true"></div>
-
-  <div class="container hero-content">
-    <p class="eyebrow">Cinematic animation for UK artists &amp; creators</p>
-    <h1>Animated music videos and social clips for UK artists &amp; creators.</h1>
-    <div class="hero-actions">
-      <a href="#work" class="btn btn-primary">See the work</a>
-      <a href="#contact" class="btn btn-secondary">Start a project</a>
-    </div>
-  </div>
-
-  <button type="button" class="sound-toggle" data-sound-toggle aria-pressed="false">
-    <span data-sound-label>Sound off</span>
-  </button>
-</section>
+        <div class="hero-video-col">
+          <div class="hero-media-portrait" data-hero-media data-platform={platform} data-id={id}>
+            <div class="hero-poster" data-hero-poster aria-hidden="true" style={posterStyle} />
+          </div>
+          <button type="button" class="sound-toggle" data-sound-toggle aria-pressed="false">
+            <span data-sound-label>Sound off</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="hero hero-landscape">
+      <div class="hero-media" data-hero-media data-platform={platform} data-id={id}>
+        <div class="hero-poster" data-hero-poster aria-hidden="true" style={posterStyle} />
+      </div>
+      <div class="hero-overlay" aria-hidden="true" />
+      <div class="container hero-content">
+        <p class="eyebrow">Cinematic animation for UK artists &amp; creators</p>
+        <h1>Animated music videos and social clips for UK artists &amp; creators.</h1>
+        <div class="hero-actions">
+          <a href="#work" class="btn btn-primary">See the work</a>
+          <a href="#contact" class="btn btn-secondary">Start a project</a>
+        </div>
+      </div>
+      <button type="button" class="sound-toggle sound-toggle-float" data-sound-toggle aria-pressed="false">
+        <span data-sound-label>Sound off</span>
+      </button>
+    </section>
+  )
+}
 
 <style>
   .hero {
     position: relative;
-    min-height: 92vh;
-    display: flex;
-    align-items: flex-end;
     overflow: hidden;
     background: var(--c-black);
-  }
-
-  .hero-media {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-
-  .hero-media :global(iframe) {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 56.25vw; /* 16:9 */
-    min-height: 100%;
-    min-width: 177.78vh; /* 16:9 */
-    transform: translate(-50%, -50%);
-    border: 0;
-    pointer-events: none;
-  }
-
-  .hero-poster {
-    position: absolute;
-    inset: 0;
-    background-color: var(--c-black);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  .hero-poster::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 20%, rgba(0, 232, 248, 0.12), transparent 55%),
-      radial-gradient(circle at 80% 70%, rgba(248, 24, 120, 0.12), transparent 55%);
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.55) 40%, rgba(10, 10, 10, 0.92) 100%);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    padding-bottom: var(--space-24);
-    max-width: 760px;
   }
 
   .eyebrow {
@@ -105,10 +72,6 @@ const poster = platform === 'youtube' ? `https://i.ytimg.com/vi/${id}/maxresdefa
     margin-bottom: var(--space-4);
   }
 
-  .hero-content h1 {
-    margin-bottom: var(--space-8);
-  }
-
   .hero-actions {
     display: flex;
     gap: var(--space-4);
@@ -116,10 +79,6 @@ const poster = platform === 'youtube' ? `https://i.ytimg.com/vi/${id}/maxresdefa
   }
 
   .sound-toggle {
-    position: absolute;
-    z-index: 2;
-    right: var(--space-6);
-    bottom: var(--space-6);
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
@@ -141,8 +100,153 @@ const poster = platform === 'youtube' ? `https://i.ytimg.com/vi/${id}/maxresdefa
     border-color: var(--c-cyan);
   }
 
+  /* ---------- Portrait (vertical video) hero ---------- */
+  .hero-portrait {
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    padding-block: var(--space-16);
+  }
+
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(circle at 15% 20%, rgba(0, 232, 248, 0.14), transparent 55%),
+      radial-gradient(circle at 90% 80%, rgba(248, 24, 120, 0.14), transparent 55%), var(--c-black);
+  }
+
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .hero-copy h1 {
+    margin-bottom: var(--space-8);
+  }
+
+  .hero-video-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .hero-media-portrait {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 9 / 16;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--c-border);
+    background: #000;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  }
+
+  /* A vertical video embeds pillar-boxed inside YouTube's 16:9 player;
+     over-size the iframe so the centred vertical strip fills the frame
+     and the black bars overflow out of the clipped container. */
+  .hero-media-portrait :global(iframe) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 316%; /* (16/9)^2 */
+    border: 0;
+    pointer-events: none;
+  }
+
+  .hero-poster {
+    position: absolute;
+    inset: 0;
+    background-color: #000;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* ---------- Landscape (full-bleed background) hero ---------- */
+  .hero-landscape {
+    min-height: 92vh;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-media :global(iframe) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw;
+    min-height: 100%;
+    min-width: 177.78vh;
+    transform: translate(-50%, -50%);
+    border: 0;
+    pointer-events: none;
+  }
+
+  .hero-landscape .hero-poster::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(0, 232, 248, 0.12), transparent 55%),
+      radial-gradient(circle at 80% 70%, rgba(248, 24, 120, 0.12), transparent 55%);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.55) 40%, rgba(10, 10, 10, 0.92) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding-bottom: var(--space-24);
+    max-width: 760px;
+  }
+
+  .hero-content h1 {
+    margin-bottom: var(--space-8);
+  }
+
+  .sound-toggle-float {
+    position: absolute;
+    z-index: 2;
+    right: var(--space-6);
+    bottom: var(--space-6);
+  }
+
+  @media (max-width: 820px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .hero-video-col {
+      order: -1;
+    }
+
+    .hero-media-portrait {
+      max-width: 260px;
+    }
+  }
+
   @media (max-width: 640px) {
-    .hero {
+    .hero-landscape {
       min-height: 78vh;
     }
   }
