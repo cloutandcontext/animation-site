@@ -8,7 +8,7 @@ import { SITE } from '../data/site';
   <section class="brand-hero">
     <div class="brand-hero-glow" aria-hidden="true"></div>
     <div class="container brand-hero-content">
-      <Logo variant="wordmark" />
+      <Logo variant="wordmark" class="hero-wordmark" />
       <h1>UK urban culture, on screen and in motion.</h1>
       <p class="text-muted brand-hero-copy">
         Clout &amp; Context is a channel covering UK independent music, and the cinematic 2D animation
@@ -87,6 +87,11 @@ import { SITE } from '../data/site';
     position: relative;
     z-index: 1;
     max-width: 760px;
+  }
+
+  .brand-hero-content :global(.hero-wordmark) {
+    max-width: 380px;
+    margin-bottom: var(--space-4);
   }
 
   .brand-hero-content h1 {
