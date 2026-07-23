@@ -81,6 +81,12 @@ h4 {
   letter-spacing: -0.01em;
 }
 
+/* Main titles use title case — a capital at the start of every word. */
+h1,
+h2 {
+  text-transform: capitalize;
+}
+
 h1 {
   font-size: clamp(2.2rem, 5vw + 1rem, 3.75rem);
 }
