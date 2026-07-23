@@ -10,9 +10,9 @@ export const SITE = {
   },
   handle: '@CloutAndContext',
   description:
-    'Clout & Context — UK urban culture channel and cinematic 2D animation studio for independent artists.',
+    'Clout & Context — UK urban culture channel and cinematic 2D animation studio for artists and creators.',
   animationsDescription:
-    'Animated music videos and social clips for UK independent artists. Cinematic 2D urban animation, quoted jobs and monthly clip packages.',
+    'Animated music videos and social clips for UK artists and creators. Cinematic 2D urban animation, quoted jobs and monthly clip packages.',
   formspreeEndpoint: 'https://formspree.io/f/mdaqzoyj',
 };
 
