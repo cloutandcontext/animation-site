@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Clout & Context',
   shortName: 'Clout & Context',
   url: 'https://cloutandcontext.com',
-  email: 'cloutandcontext@gmail.com',
+  email: 'info@cloutandcontext.com',
   social: {
     instagram: 'https://instagram.com/cloutandcontext',
     tiktok: 'https://tiktok.com/@cloutandcontext',
