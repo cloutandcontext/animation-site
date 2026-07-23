@@ -15,10 +15,12 @@ interface Props {
 }
 const { platform, id, orientation = 'landscape', overlay } = Astro.props;
 
-const ytThumb = (vid: string) => `https://i.ytimg.com/vi/${vid}/maxresdefault.jpg`;
-const bgPoster = platform === 'youtube' ? `background-image: url(${ytThumb(id)});` : undefined;
-const overlayPoster =
-  overlay && overlay.platform === 'youtube' ? `background-image: url(${ytThumb(overlay.id)});` : undefined;
+const yt = (v: string) => ({
+  max: `https://i.ytimg.com/vi/${v}/maxresdefault.jpg`,
+  fb: `https://i.ytimg.com/vi/${v}/mqdefault.jpg`,
+});
+const bg = platform === 'youtube' ? yt(id) : null;
+const ov = overlay && overlay.platform === 'youtube' ? yt(overlay.id) : null;
 
 const copy = {
   eyebrow: 'Cinematic animation for UK artists & creators',
@@ -30,7 +32,9 @@ const copy = {
   orientation === 'combined' ? (
     <section class="hero hero-combined" data-hero>
       <div class="hero-media hero-bg" data-hero-media data-platform={platform} data-id={id} data-sound="true">
-        <div class="hero-poster" aria-hidden="true" style={bgPoster} />
+        {bg && (
+          <img class="hero-poster" src={bg.max} alt="" decoding="async" onerror={`this.onerror=null;this.src='${bg.fb}'`} />
+        )}
       </div>
       <div class="hero-overlay" aria-hidden="true" />
 
@@ -47,7 +51,9 @@ const copy = {
         {overlay && (
           <div class="hero-video-col">
             <div class="hero-media-portrait" data-hero-media data-platform={overlay.platform} data-id={overlay.id}>
-              <div class="hero-poster" aria-hidden="true" style={overlayPoster} />
+              {ov && (
+                <img class="hero-poster" src={ov.max} alt="" decoding="async" onerror={`this.onerror=null;this.src='${ov.fb}'`} />
+              )}
             </div>
           </div>
         )}
@@ -72,7 +78,9 @@ const copy = {
 
         <div class="hero-video-col">
           <div class="hero-media-portrait" data-hero-media data-platform={platform} data-id={id} data-sound="true">
-            <div class="hero-poster" aria-hidden="true" style={bgPoster} />
+            {bg && (
+              <img class="hero-poster" src={bg.max} alt="" decoding="async" onerror={`this.onerror=null;this.src='${bg.fb}'`} />
+            )}
           </div>
           <button type="button" class="sound-toggle" data-sound-toggle aria-pressed="false">
             <span data-sound-label>Sound off</span>
@@ -83,7 +91,9 @@ const copy = {
   ) : (
     <section class="hero hero-landscape" data-hero>
       <div class="hero-media" data-hero-media data-platform={platform} data-id={id} data-sound="true">
-        <div class="hero-poster" aria-hidden="true" style={bgPoster} />
+        {bg && (
+          <img class="hero-poster" src={bg.max} alt="" decoding="async" onerror={`this.onerror=null;this.src='${bg.fb}'`} />
+        )}
       </div>
       <div class="hero-overlay" aria-hidden="true" />
       <div class="container hero-content">
@@ -155,10 +165,10 @@ const copy = {
   .hero-poster {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     background-color: #000;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
   }
 
   .hero-overlay {
@@ -274,10 +284,6 @@ const copy = {
     padding-block: var(--space-16);
   }
 
-  .hero-combined .hero-grid {
-    align-items: center;
-  }
-
   .hero-combined .hero-media-portrait {
     max-width: 280px;
     margin-left: auto;
@@ -304,7 +310,7 @@ const copy = {
 
   @media (max-width: 640px) {
     .hero-landscape {
-      min-height: 78vh;
+      min-height: 70vh;
     }
   }
 </style>
@@ -318,10 +324,13 @@ const copy = {
     const toggleBtn = section.querySelector<HTMLButtonElement>('[data-sound-toggle]');
     const label = section.querySelector<HTMLElement>('[data-sound-label]');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Mobile browsers (esp. iOS) don't reliably autoplay embedded YouTube/Vimeo
+    // iframes; show the still poster there instead of a blank/frozen player.
+    const isMobile = window.matchMedia('(max-width: 820px)').matches;
     const medias = Array.from(section.querySelectorAll<HTMLElement>('[data-hero-media]'));
     const win = window as any;
 
-    if (reduceMotion || medias.length === 0) {
+    if (reduceMotion || isMobile || medias.length === 0) {
       toggleBtn?.setAttribute('hidden', '');
       return;
     }
@@ -362,7 +371,7 @@ const copy = {
 
       if (platform === 'vimeo') {
         const iframe = document.createElement('iframe');
-        iframe.src = `https://player.vimeo.com/video/${vid}?background=0&muted=1&loop=1&controls=0&autoplay=1&title=0&byline=0&portrait=0`;
+        iframe.src = `https://player.vimeo.com/video/${vid}?background=1&muted=1&loop=1&autoplay=1&title=0&byline=0&portrait=0`;
         iframe.allow = 'autoplay; fullscreen';
         iframe.setAttribute('title', 'Clout & Context showreel');
         media.appendChild(iframe);
