@@ -1,24 +1,69 @@
 ---
 import type { Platform } from '../data/work';
 
+interface VideoRef {
+  platform: Platform;
+  id: string;
+}
+
 interface Props {
   platform: Platform;
   id: string;
-  orientation?: 'landscape' | 'portrait';
+  orientation?: 'landscape' | 'portrait' | 'combined';
+  /** Portrait overlay video, used only when orientation is 'combined'. */
+  overlay?: VideoRef;
 }
-const { platform, id, orientation = 'landscape' } = Astro.props;
-const poster = platform === 'youtube' ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : null;
-const posterStyle = poster ? `background-image: url(${poster});` : undefined;
+const { platform, id, orientation = 'landscape', overlay } = Astro.props;
+
+const ytThumb = (vid: string) => `https://i.ytimg.com/vi/${vid}/maxresdefault.jpg`;
+const bgPoster = platform === 'youtube' ? `background-image: url(${ytThumb(id)});` : undefined;
+const overlayPoster =
+  overlay && overlay.platform === 'youtube' ? `background-image: url(${ytThumb(overlay.id)});` : undefined;
+
+const copy = {
+  eyebrow: 'Cinematic animation for UK artists & creators',
+  heading: 'Animated music videos and social clips for UK artists & creators.',
+};
 ---
 
 {
-  orientation === 'portrait' ? (
-    <section class="hero hero-portrait">
+  orientation === 'combined' ? (
+    <section class="hero hero-combined" data-hero>
+      <div class="hero-media hero-bg" data-hero-media data-platform={platform} data-id={id} data-sound="true">
+        <div class="hero-poster" aria-hidden="true" style={bgPoster} />
+      </div>
+      <div class="hero-overlay" aria-hidden="true" />
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">{copy.eyebrow}</p>
+          <h1>{copy.heading}</h1>
+          <div class="hero-actions">
+            <a href="#work" class="btn btn-primary">See the work</a>
+            <a href="#contact" class="btn btn-secondary">Start a project</a>
+          </div>
+        </div>
+
+        {overlay && (
+          <div class="hero-video-col">
+            <div class="hero-media-portrait" data-hero-media data-platform={overlay.platform} data-id={overlay.id}>
+              <div class="hero-poster" aria-hidden="true" style={overlayPoster} />
+            </div>
+          </div>
+        )}
+      </div>
+
+      <button type="button" class="sound-toggle sound-toggle-float" data-sound-toggle aria-pressed="false">
+        <span data-sound-label>Sound off</span>
+      </button>
+    </section>
+  ) : orientation === 'portrait' ? (
+    <section class="hero hero-portrait" data-hero>
       <div class="hero-glow" aria-hidden="true" />
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Cinematic animation for UK artists &amp; creators</p>
-          <h1>Animated music videos and social clips for UK artists &amp; creators.</h1>
+          <p class="eyebrow">{copy.eyebrow}</p>
+          <h1>{copy.heading}</h1>
           <div class="hero-actions">
             <a href="#work" class="btn btn-primary">See the work</a>
             <a href="#contact" class="btn btn-secondary">Start a project</a>
@@ -26,8 +71,8 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
         </div>
 
         <div class="hero-video-col">
-          <div class="hero-media-portrait" data-hero-media data-platform={platform} data-id={id}>
-            <div class="hero-poster" data-hero-poster aria-hidden="true" style={posterStyle} />
+          <div class="hero-media-portrait" data-hero-media data-platform={platform} data-id={id} data-sound="true">
+            <div class="hero-poster" aria-hidden="true" style={bgPoster} />
           </div>
           <button type="button" class="sound-toggle" data-sound-toggle aria-pressed="false">
             <span data-sound-label>Sound off</span>
@@ -36,14 +81,14 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
       </div>
     </section>
   ) : (
-    <section class="hero hero-landscape">
-      <div class="hero-media" data-hero-media data-platform={platform} data-id={id}>
-        <div class="hero-poster" data-hero-poster aria-hidden="true" style={posterStyle} />
+    <section class="hero hero-landscape" data-hero>
+      <div class="hero-media" data-hero-media data-platform={platform} data-id={id} data-sound="true">
+        <div class="hero-poster" aria-hidden="true" style={bgPoster} />
       </div>
       <div class="hero-overlay" aria-hidden="true" />
       <div class="container hero-content">
-        <p class="eyebrow">Cinematic animation for UK artists &amp; creators</p>
-        <h1>Animated music videos and social clips for UK artists &amp; creators.</h1>
+        <p class="eyebrow">{copy.eyebrow}</p>
+        <h1>{copy.heading}</h1>
         <div class="hero-actions">
           <a href="#work" class="btn btn-primary">See the work</a>
           <a href="#contact" class="btn btn-secondary">Start a project</a>
@@ -100,6 +145,29 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
     border-color: var(--c-cyan);
   }
 
+  .sound-toggle-float {
+    position: absolute;
+    z-index: 3;
+    right: var(--space-6);
+    bottom: var(--space-6);
+  }
+
+  .hero-poster {
+    position: absolute;
+    inset: 0;
+    background-color: #000;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.62) 0%, rgba(10, 10, 10, 0.58) 40%, rgba(10, 10, 10, 0.92) 100%);
+  }
+
   /* ---------- Portrait (vertical video) hero ---------- */
   .hero-portrait {
     min-height: 88vh;
@@ -118,7 +186,7 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
 
   .hero-grid {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: grid;
     grid-template-columns: 1.05fr 0.95fr;
     gap: var(--space-12);
@@ -145,12 +213,11 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
     overflow: hidden;
     border: 1px solid var(--c-border);
     background: #000;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
   }
 
   /* A vertical video embeds pillar-boxed inside YouTube's 16:9 player;
-     over-size the iframe so the centred vertical strip fills the frame
-     and the black bars overflow out of the clipped container. */
+     over-size the iframe so the centred vertical strip fills the frame. */
   .hero-media-portrait :global(iframe) {
     position: absolute;
     top: 50%;
@@ -160,15 +227,6 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
     width: 316%; /* (16/9)^2 */
     border: 0;
     pointer-events: none;
-  }
-
-  .hero-poster {
-    position: absolute;
-    inset: 0;
-    background-color: #000;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
   }
 
   /* ---------- Landscape (full-bleed background) hero ---------- */
@@ -197,21 +255,6 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
     pointer-events: none;
   }
 
-  .hero-landscape .hero-poster::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 30% 20%, rgba(0, 232, 248, 0.12), transparent 55%),
-      radial-gradient(circle at 80% 70%, rgba(248, 24, 120, 0.12), transparent 55%);
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: linear-gradient(180deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.55) 40%, rgba(10, 10, 10, 0.92) 100%);
-  }
-
   .hero-content {
     position: relative;
     z-index: 2;
@@ -223,11 +266,21 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
     margin-bottom: var(--space-8);
   }
 
-  .sound-toggle-float {
-    position: absolute;
-    z-index: 2;
-    right: var(--space-6);
-    bottom: var(--space-6);
+  /* ---------- Combined (landscape bg + portrait overlay) hero ---------- */
+  .hero-combined {
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    padding-block: var(--space-16);
+  }
+
+  .hero-combined .hero-grid {
+    align-items: center;
+  }
+
+  .hero-combined .hero-media-portrait {
+    max-width: 280px;
+    margin-left: auto;
   }
 
   @media (max-width: 820px) {
@@ -241,7 +294,11 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
     }
 
     .hero-media-portrait {
-      max-width: 260px;
+      max-width: 240px;
+    }
+
+    .hero-combined .hero-media-portrait {
+      margin-inline: auto;
     }
   }
 
@@ -254,106 +311,125 @@ const posterStyle = poster ? `background-image: url(${poster});` : undefined;
 
 <script>
   function initHero() {
-    const media = document.querySelector<HTMLElement>('[data-hero-media]');
-    const toggleBtn = document.querySelector<HTMLButtonElement>('[data-sound-toggle]');
-    const label = document.querySelector<HTMLElement>('[data-sound-label]');
-    if (!media || media.dataset.bound) return;
-    media.dataset.bound = '1';
+    const section = document.querySelector<HTMLElement>('[data-hero]');
+    if (!section || section.dataset.bound) return;
+    section.dataset.bound = '1';
 
-    const platform = media.dataset.platform;
-    const videoId = media.dataset.id;
+    const toggleBtn = section.querySelector<HTMLButtonElement>('[data-sound-toggle]');
+    const label = section.querySelector<HTMLElement>('[data-sound-label]');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const medias = Array.from(section.querySelectorAll<HTMLElement>('[data-hero-media]'));
+    const win = window as any;
 
-    // Respect reduced motion: leave the static poster, no autoplaying video.
-    if (reduceMotion || !videoId) {
+    if (reduceMotion || medias.length === 0) {
       toggleBtn?.setAttribute('hidden', '');
       return;
     }
 
-    let player: any = null;
-    let ready = false;
-    const win = window as any;
+    let soundPlayer: any = null;
+    let soundReady = false;
+    let soundPlatform: string | null = null;
+    const pendingYT: { id: string; isSound: boolean }[] = [];
+    let ytApiRequested = false;
 
-    function mountVimeo() {
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://player.vimeo.com/video/${videoId}?background=0&muted=1&loop=1&controls=0&autoplay=1&title=0&byline=0&portrait=0`;
-      iframe.allow = 'autoplay; fullscreen';
-      iframe.setAttribute('title', 'Clout & Context showreel');
-      media!.appendChild(iframe);
-      const script = document.createElement('script');
-      script.src = 'https://player.vimeo.com/api/player.js';
-      script.onload = () => {
-        player = new win.Vimeo.Player(iframe);
-        ready = true;
-      };
-      document.body.appendChild(script);
+    function flushYT() {
+      pendingYT.forEach(({ id, isSound }) => {
+        const p = new win.YT.Player(id, {
+          events: { onReady: () => { if (isSound) soundReady = true; } },
+        });
+        if (isSound) soundPlayer = p;
+      });
+      pendingYT.length = 0;
     }
 
-    function mountYouTube() {
-      const iframe = document.createElement('iframe');
-      iframe.id = 'hero-yt-player';
-      const origin = encodeURIComponent(location.origin);
-      iframe.src =
-        `https://www.youtube-nocookie.com/embed/${videoId}` +
-        `?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&rel=0` +
-        `&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&origin=${origin}`;
-      iframe.allow = 'autoplay; fullscreen; encrypted-media';
-      iframe.setAttribute('title', 'Clout & Context showreel');
-      media!.appendChild(iframe);
-
-      const makePlayer = () => {
-        player = new win.YT.Player('hero-yt-player', {
-          events: { onReady: () => (ready = true) },
-        });
-      };
+    function ensureYTApi() {
       if (win.YT && win.YT.Player) {
-        makePlayer();
-      } else {
-        const script = document.createElement('script');
-        script.src = 'https://www.youtube.com/iframe_api';
-        document.body.appendChild(script);
-        win.onYouTubeIframeAPIReady = makePlayer;
+        flushYT();
+      } else if (!ytApiRequested) {
+        ytApiRequested = true;
+        const s = document.createElement('script');
+        s.src = 'https://www.youtube.com/iframe_api';
+        document.body.appendChild(s);
+        win.onYouTubeIframeAPIReady = flushYT;
       }
     }
 
-    function mount() {
-      if (platform === 'vimeo') mountVimeo();
-      else mountYouTube();
+    function mount(media: HTMLElement, idx: number) {
+      const platform = media.dataset.platform;
+      const vid = media.dataset.id;
+      const isSound = media.dataset.sound === 'true';
+      if (!vid) return;
+
+      if (platform === 'vimeo') {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://player.vimeo.com/video/${vid}?background=0&muted=1&loop=1&controls=0&autoplay=1&title=0&byline=0&portrait=0`;
+        iframe.allow = 'autoplay; fullscreen';
+        iframe.setAttribute('title', 'Clout & Context showreel');
+        media.appendChild(iframe);
+        const s = document.createElement('script');
+        s.src = 'https://player.vimeo.com/api/player.js';
+        s.onload = () => {
+          const p = new win.Vimeo.Player(iframe);
+          if (isSound) {
+            soundPlayer = p;
+            soundReady = true;
+            soundPlatform = 'vimeo';
+          }
+        };
+        document.body.appendChild(s);
+      } else {
+        const iframe = document.createElement('iframe');
+        const iid = `hero-yt-${idx}`;
+        iframe.id = iid;
+        const origin = encodeURIComponent(location.origin);
+        iframe.src =
+          `https://www.youtube-nocookie.com/embed/${vid}` +
+          `?autoplay=1&mute=1&loop=1&playlist=${vid}&controls=0&rel=0` +
+          `&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&origin=${origin}`;
+        iframe.allow = 'autoplay; fullscreen; encrypted-media';
+        iframe.setAttribute('title', 'Clout & Context showreel');
+        media.appendChild(iframe);
+        if (isSound) soundPlatform = 'youtube';
+        pendingYT.push({ id: iid, isSound });
+        ensureYTApi();
+      }
     }
+
+    const mountAll = () => medias.forEach((m, i) => mount(m, i));
 
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              mount();
+              mountAll();
               observer.disconnect();
             }
           });
         },
-        { threshold: 0.1 }
+        { threshold: 0.05 }
       );
-      observer.observe(media);
+      observer.observe(section);
     } else {
-      mount();
+      mountAll();
     }
 
     toggleBtn?.addEventListener('click', () => {
-      if (!player || !ready) return;
+      if (!soundPlayer || !soundReady) return;
       const isPressed = toggleBtn.getAttribute('aria-pressed') === 'true';
       const setLabel = () => {
         toggleBtn.setAttribute('aria-pressed', String(!isPressed));
         if (label) label.textContent = isPressed ? 'Sound off' : 'Sound on';
       };
 
-      if (platform === 'vimeo') {
-        player.setMuted(isPressed).then(setLabel);
+      if (soundPlatform === 'vimeo') {
+        soundPlayer.setMuted(isPressed).then(setLabel);
       } else {
         if (isPressed) {
-          player.mute?.();
+          soundPlayer.mute?.();
         } else {
-          player.unMute?.();
-          player.setVolume?.(100);
+          soundPlayer.unMute?.();
+          soundPlayer.setVolume?.(100);
         }
         setLabel();
       }
