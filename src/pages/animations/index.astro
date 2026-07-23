@@ -25,10 +25,14 @@ import { SITE } from '../../data/site';
         {MUSIC_VIDEO_WORK.map((item) => <WorkCard item={item} />)}
       </div>
 
-      <h3 class="clips-subheading">Social clips</h3>
-      <div class="grid grid-3">
-        {CLIP_WORK.map((item) => <WorkCard item={item} />)}
-      </div>
+      {CLIP_WORK.length > 0 && (
+        <>
+          <h3 class="clips-subheading">Social clips</h3>
+          <div class="grid grid-3">
+            {CLIP_WORK.map((item) => <WorkCard item={item} />)}
+          </div>
+        </>
+      )}
     </div>
   </section>
 

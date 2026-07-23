@@ -10,18 +10,12 @@ export interface WorkItem {
 }
 
 /**
- * Placeholder portfolio entries. Replace `id` with the real Vimeo/YouTube video ID
- * for each piece, and update artist/package copy once approved.
+ * Portfolio entries. Add a real music video or clip by appending to the
+ * relevant array — `id` is the YouTube video ID (the part after youtu.be/ or
+ * watch?v=) or the Vimeo numeric ID. Clips should set orientation: 'vertical'.
  */
 export const MUSIC_VIDEO_WORK: WorkItem[] = [
-  { title: 'Showreel 2026', artist: 'Clout & Context', package: 'Showreel', platform: 'youtube', id: 'M7lc1UVf-VE' },
-  { title: 'Midnight Runner', artist: 'Artist Name', package: 'Hook Video', platform: 'vimeo', id: '76979871' },
-  { title: 'City Lights', artist: 'Artist Name', package: 'Story-Based', platform: 'vimeo', id: '76979871' },
-  { title: 'No Ceiling', artist: 'Artist Name', package: 'Premium Cinematic', platform: 'vimeo', id: '76979871' },
+  { title: 'Miss Onyx — Jumpy', artist: 'Miss Onyx', package: 'Hook Video', platform: 'youtube', id: '-n81ylHc1Ok' },
 ];
 
-export const CLIP_WORK: WorkItem[] = [
-  { title: 'TikTok Hook Clip', artist: 'Artist Name', package: 'Clips Package', platform: 'vimeo', id: '76979871', orientation: 'vertical' },
-  { title: 'Reel Cutdown', artist: 'Artist Name', package: 'Clips Package', platform: 'vimeo', id: '76979871', orientation: 'vertical' },
-  { title: 'Shorts Teaser', artist: 'Artist Name', package: 'Clips Package', platform: 'vimeo', id: '76979871', orientation: 'vertical' },
-];
+export const CLIP_WORK: WorkItem[] = [];

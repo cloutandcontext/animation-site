@@ -17,10 +17,25 @@ const src =
     ? `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0${autoplay ? '&autoplay=1&muted=1&loop=1' : ''}`
     : `https://www.youtube-nocookie.com/embed/${id}?rel=0${autoplay ? '&autoplay=1&mute=1&loop=1' : ''}`;
 
+// YouTube exposes static thumbnails with no cookies; use the best one as the
+// click-to-play poster, falling back to the always-present mqdefault.
+const poster = platform === 'youtube' ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : null;
+const posterFallback = platform === 'youtube' ? `https://i.ytimg.com/vi/${id}/mqdefault.jpg` : null;
+
 const frameClass = orientation === 'vertical' ? 'video-frame is-vertical' : 'video-frame';
 ---
 
 <div class={`${frameClass} ${className}`} data-video-embed data-src={src} data-title={title}>
+  {poster && (
+    <img
+      class="video-poster"
+      src={poster}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      onerror={`this.onerror=null;this.src='${posterFallback}'`}
+    />
+  )}
   <button type="button" class="video-play" aria-label={`Play ${title}`}>
     <span class="video-play-icon" aria-hidden="true">
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -38,7 +53,17 @@ const frameClass = orientation === 'vertical' ? 'video-frame is-vertical' : 'vid
     cursor: pointer;
   }
 
+  .video-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .video-play {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -49,6 +74,21 @@ const frameClass = orientation === 'vertical' ? 'video-frame is-vertical' : 'vid
     background: var(--gradient-brand);
     color: var(--c-black);
     cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .video-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.25);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  .video-frame:hover::after {
+    opacity: 1;
   }
 </style>
 
