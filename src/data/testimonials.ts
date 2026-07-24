@@ -21,10 +21,10 @@ export interface Testimonial {
  * the site. Add an approved one by copying the shape below.
  */
 export const TESTIMONIALS: Testimonial[] = [
-  // {
-  //   quote: 'They just get the sound — the video landed exactly how I heard it in my head.',
-  //   name: 'Artist Name',
-  //   role: 'Artist',
-  //   rating: 5,
-  // },
+  {
+    quote:
+      "Really happy with the work C&C did for me. They understood exactly what I wanted, communicated well throughout and delivered a professional result that exceeded my expectations. Reliable, easy to work with and I'd definitely recommend them.",
+    name: 'Miss Onyx',
+    role: 'DirtyRichRecordings / DirtyRichProductions',
+  },
 ];
