@@ -6,7 +6,20 @@ import { SITE } from '../data/site';
 
 <BaseLayout title="Clout & Context" description={SITE.description}>
   <section class="brand-hero">
-    <div class="brand-hero-media" data-brand-hero-media data-id="76979871" aria-hidden="true"></div>
+    <div class="brand-hero-media" aria-hidden="true">
+      <video
+        class="brand-hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="/hero/home-reel-poster.jpg"
+        data-hero-video
+      >
+        <source src="/hero/home-reel.mp4" type="video/mp4" />
+      </video>
+    </div>
     <div class="brand-hero-glow" aria-hidden="true"></div>
     <div class="container brand-hero-content">
       <Logo variant="wordmark" class="hero-wordmark" />
@@ -85,16 +98,12 @@ import { SITE } from '../data/site';
     background: #000;
   }
 
-  .brand-hero-media :global(iframe) {
+  .brand-hero-video {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 56.25vw;
-    min-height: 100%;
-    min-width: 177.78vh;
-    transform: translate(-50%, -50%);
-    border: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     pointer-events: none;
   }
 
@@ -163,37 +172,12 @@ import { SITE } from '../data/site';
 
 <script>
   function initBrandHero() {
-    const media = document.querySelector<HTMLElement>('[data-brand-hero-media]');
-    if (!media || media.dataset.bound) return;
-    media.dataset.bound = '1';
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const id = media.dataset.id;
-    if (!id) return;
-
-    const mount = () => {
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://player.vimeo.com/video/${id}?background=1&muted=1&loop=1&autoplay=1`;
-      iframe.allow = 'autoplay; fullscreen';
-      iframe.setAttribute('title', 'Clout & Context');
-      media.appendChild(iframe);
-    };
-
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              mount();
-              observer.disconnect();
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
-      observer.observe(media);
-    } else {
-      mount();
+    const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+    if (!video) return;
+    // Respect reduced motion: hold on the poster frame instead of looping.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      video.removeAttribute('autoplay');
+      video.pause();
     }
   }
 
