@@ -39,10 +39,10 @@ import { SITE } from '../data/site';
     <div class="container">
       <div class="section-heading">
         <span class="eyebrow">Start here</span>
-        <h2>Two sides of the same channel</h2>
+        <h2>Three Sides, One Operation</h2>
       </div>
 
-      <div class="grid grid-2">
+      <div class="grid grid-3">
         <article class="card hub-card">
           <span class="badge">Animation Studio</span>
           <h3>Animated Music Videos &amp; Social Clips</h3>
@@ -58,9 +58,19 @@ import { SITE } from '../data/site';
           <h3>Clout &amp; Context on YouTube</h3>
           <p class="text-muted">
             Coverage of UK urban culture, the artists, and the scene — the audience and credibility
-            that every animation project is built on.
+            that every project is built on.
           </p>
-          <a href={SITE.social.youtube} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Watch the channel</a>
+          <a href={SITE.social.youtube} class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Watch the channel</a>
+        </article>
+
+        <article class="card hub-card">
+          <span class="badge">Systems</span>
+          <h3>Content Systems &amp; Automation</h3>
+          <p class="text-muted">
+            The engine that turns a release into a full campaign — content systems, moment monitoring
+            and automation for creators, artists, labels and brands.
+          </p>
+          <a href="/systems/" class="btn btn-secondary">Explore systems</a>
         </article>
       </div>
     </div>
@@ -156,7 +166,7 @@ import { SITE } from '../data/site';
 
   .hub-card .btn {
     align-self: flex-start;
-    margin-top: var(--space-2);
+    margin-top: auto;
   }
 
   .follow-section {
