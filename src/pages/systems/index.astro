@@ -1,0 +1,493 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site';
+
+const bookHref = `mailto:${SITE.email}?subject=${encodeURIComponent('Systems — discovery call')}`;
+---
+
+<BaseLayout
+  title="Systems"
+  description="Content systems for artists, labels and brands. We build the engine that turns a release into a full campaign, then keep it running."
+>
+  <section class="sys-hero">
+    <div class="container">
+      <span class="badge">Clout &amp; Context Systems</span>
+      <h1>Content Systems For Creators, Artists And Labels</h1>
+      <p class="sys-lede text-muted">We build the engine that turns an upload, a release or a moment into a full campaign — then keep it running. Brands welcome too.</p>
+
+      <figure class="moment-graph">
+        <svg viewBox="0 0 900 230" role="img" aria-label="Chart showing audience attention spiking around cultural moments rather than staying flat.">
+          <defs>
+            <linearGradient id="mgBrand" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#00e8f8" />
+              <stop offset="50%" stop-color="#b048d8" />
+              <stop offset="100%" stop-color="#f81878" />
+            </linearGradient>
+          </defs>
+
+          <line class="mg-base" x1="0" y1="196" x2="900" y2="196" />
+          <path class="mg-fill" d="M0,182 L38,178 L74,186 L104,168 L132,180 L168,176 L196,58 L214,150 L238,172 L272,166 L306,178 L338,170 L366,184 L398,174 L428,96 L448,146 L470,168 L502,160 L536,176 L568,168 L598,180 L628,172 L660,26 L680,120 L704,158 L736,164 L768,152 L802,170 L836,162 L868,176 L900,168 L900,196 L0,196 Z" />
+          <path class="mg-trace" d="M0,182 L38,178 L74,186 L104,168 L132,180 L168,176 L196,58 L214,150 L238,172 L272,166 L306,178 L338,170 L366,184 L398,174 L428,96 L448,146 L470,168 L502,160 L536,176 L568,168 L598,180 L628,172 L660,26 L680,120 L704,158 L736,164 L768,152 L802,170 L836,162 L868,176 L900,168" />
+
+          <line class="mg-tick mg-1" x1="196" y1="58" x2="196" y2="196" />
+          <circle class="mg-dot mg-1" cx="196" cy="58" r="4" />
+          <text class="mg-label mg-1" x="206" y="52">Podcast clip lands</text>
+
+          <line class="mg-tick mg-2" x1="428" y1="96" x2="428" y2="196" />
+          <circle class="mg-dot mg-2" cx="428" cy="96" r="4" />
+          <text class="mg-label mg-2" x="438" y="90">Live goes off</text>
+
+          <line class="mg-tick mg-3" x1="660" y1="26" x2="660" y2="196" />
+          <circle class="mg-dot mg-3" cx="660" cy="26" r="4" />
+          <text class="mg-label mg-3" x="670" y="20">The drop</text>
+        </svg>
+        <figcaption class="mg-axis">
+          <span>Attention · 90 days</span>
+          <span>Peaks are where campaigns are won</span>
+        </figcaption>
+      </figure>
+
+      <p class="sys-thesis">Attention in this scene was never flat. It spikes on moments, then goes quiet. We build the system that catches the spikes while they're still worth reacting to.</p>
+
+      <a href="#book" class="btn btn-primary">Book a discovery call</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">How it works</span>
+        <h2>The Engine</h2>
+      </div>
+      <p class="text-muted">A loop, not a launch — it sharpens every cycle.</p>
+
+      <div class="grid grid-4">
+        <article class="card sys-card">
+          <span class="sys-card-tag">Content engine</span>
+          <h3>In Your Voice</h3>
+          <p class="text-muted">An upload, a release, a drop or a moment goes in. Clip concepts, hooks, captions, thumbnail angles and a posting schedule come out — written the way your audience already hears you.</p>
+        </article>
+        <article class="card sys-card">
+          <span class="sys-card-tag">Moment monitoring</span>
+          <h3>While It's Still Hot</h3>
+          <p class="text-muted">Flags what's spiking across the scene in time to react. Most campaigns miss the moment by two days. This is the part that doesn't.</p>
+        </article>
+        <article class="card sys-card">
+          <span class="sys-card-tag">Performance loop</span>
+          <h3>Learns Your Audience</h3>
+          <p class="text-muted">Tracks what landed and what died, then feeds it back in. Month three is sharper than month one because it's been watching.</p>
+        </article>
+        <article class="card sys-card">
+          <span class="sys-card-tag">Dashboard</span>
+          <h3>One Screen</h3>
+          <p class="text-muted">What shipped, what performed, what's queued. Built so a manager can check it in thirty seconds between meetings.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Track record</span>
+        <h2>We're Not Guessing</h2>
+      </div>
+      <p class="text-muted">Most agencies pitching content systems have never had to make content perform. We run a channel in this scene, upload on a schedule, and live by the same numbers you do.</p>
+
+      <div class="grid grid-4">
+        <div>
+          <div class="sys-stat-value">18k</div>
+          <div class="sys-stat-label">Watch hours, past year</div>
+        </div>
+        <div>
+          <div class="sys-stat-value">12</div>
+          <div class="sys-stat-label">Long-form videos a month</div>
+        </div>
+        <div>
+          <div class="sys-stat-value">25–44</div>
+          <div class="sys-stat-label">Core audience, mobile-first</div>
+        </div>
+        <div>
+          <div class="sys-stat-value">7</div>
+          <div class="sys-stat-label">Months building the playbook</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Pricing</span>
+        <h2>What It Costs</h2>
+      </div>
+      <p class="text-muted">Build fee to get the system running, then a monthly to keep it monitored, tuned and shipping. Animation production is quoted separately.</p>
+
+      <div class="grid grid-4">
+        <article class="card sys-tier">
+          <div class="sys-tier-who">Creator, starting out</div>
+          <div class="sys-tier-build">£300<small>Build</small></div>
+          <p class="sys-tier-retainer"><strong>£100</strong> / month</p>
+          <p class="sys-tier-note">Engine and dashboard. No monitoring.</p>
+        </article>
+        <article class="card sys-tier">
+          <div class="sys-tier-who">Creator or independent artist</div>
+          <div class="sys-tier-build">£750–1,200<small>Build</small></div>
+          <p class="sys-tier-retainer"><strong>£250–400</strong> / month</p>
+          <p class="sys-tier-note">Full engine, monitoring and loop.</p>
+        </article>
+        <article class="card sys-tier">
+          <div class="sys-tier-who">Established creator, artist or brand</div>
+          <div class="sys-tier-build">£2,000–3,000<small>Build</small></div>
+          <p class="sys-tier-retainer"><strong>£500–800</strong> / month</p>
+          <p class="sys-tier-note">Full engine, monitoring and loop.</p>
+        </article>
+        <article class="card sys-tier">
+          <div class="sys-tier-who">Label, roster or network</div>
+          <div class="sys-tier-build">£4,000+<small>Build</small></div>
+          <p class="sys-tier-retainer"><strong>£1,000+</strong> / month</p>
+          <p class="sys-tier-note">Multiple accounts under one system.</p>
+        </article>
+      </div>
+
+      <div class="card sys-discovery">
+        <p class="text-muted">Every build starts with a paid discovery session — we map your release cycle and show you the system before you commit.</p>
+        <strong>£500, credited against the build</strong>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Automation</span>
+        <h2>We Also Build</h2>
+      </div>
+      <p class="text-muted">Same engineering, pointed at the admin instead of the audience. Quoted per project.</p>
+
+      <ul class="sys-also">
+        <li>
+          <span class="sys-also-tag">Docs</span>
+          <span class="text-muted">Invoice and document processing — inbox to your accounts system, with duplicates flagged before you pay them twice.</span>
+        </li>
+        <li>
+          <span class="sys-also-tag">Ops</span>
+          <span class="text-muted">Internal automation for the repetitive work between your existing tools.</span>
+        </li>
+        <li>
+          <span class="sys-also-tag">Data</span>
+          <span class="text-muted">Custom dashboards and internal tools, built around how you actually work.</span>
+        </li>
+        <li>
+          <span class="sys-also-tag">Voice</span>
+          <span class="text-muted">AI voice agents that answer, qualify and book — so nothing goes to voicemail.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sys-cta" id="book">
+    <div class="container">
+      <div class="section-heading">
+        <span class="eyebrow">Get started</span>
+        <h2>Tell Us What's Coming Next</h2>
+      </div>
+      <p class="text-muted">An upload, a release, a launch — whatever's next. We'll come back with what the system would do with it.</p>
+      <a href={bookHref} class="btn btn-primary">Book a discovery call</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  /* ---- /systems page-specific styles (prefixed, no collisions) ---- */
+  .sys-hero {
+    padding-block: var(--space-16) var(--space-24);
+  }
+  .sys-hero h1 {
+    max-width: 15ch;
+  }
+  .sys-hero .badge {
+    margin-bottom: var(--space-6);
+  }
+  .sys-lede {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    max-width: 42ch;
+    margin-bottom: var(--space-12);
+  }
+
+  /* signature: the moment graph */
+  .moment-graph {
+    margin: 0 0 var(--space-8);
+  }
+  .moment-graph svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .mg-trace {
+    fill: none;
+    stroke: url(#mgBrand);
+    stroke-width: 2.2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .mg-fill {
+    fill: rgba(255, 255, 255, 0.035);
+    stroke: none;
+  }
+  .mg-base {
+    stroke: var(--c-border);
+    stroke-width: 1;
+  }
+  .mg-tick {
+    stroke: var(--c-cyan);
+    stroke-width: 1;
+    stroke-dasharray: 2 3;
+    opacity: 0.45;
+  }
+  .mg-dot {
+    fill: var(--c-cyan);
+  }
+  .mg-label {
+    font-family: var(--font-body);
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--c-white);
+  }
+  .mg-axis {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    border-top: 1px solid var(--c-border);
+    padding-top: var(--space-3);
+    margin-top: var(--space-2);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .sys-thesis {
+    border-left: 3px solid transparent;
+    border-image: var(--gradient-brand) 1;
+    padding-left: var(--space-4);
+    max-width: 46ch;
+    margin-bottom: var(--space-8);
+  }
+
+  /* engine cards */
+  .sys-card-tag {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-cyan);
+    margin-bottom: var(--space-6);
+  }
+  .sys-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* proof stats */
+  .sys-stat-value {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--c-white);
+    margin-bottom: var(--space-3);
+  }
+  .sys-stat-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+
+  /* pricing */
+  .sys-tier {
+    display: flex;
+    flex-direction: column;
+  }
+  .sys-tier-who {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-bottom: var(--space-6);
+  }
+  .sys-tier-build {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .sys-tier-build small {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    margin-top: var(--space-2);
+  }
+  .sys-tier-retainer {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--c-border);
+    margin-bottom: 0;
+  }
+  .sys-tier-retainer strong {
+    color: var(--c-cyan);
+  }
+  .sys-tier-note {
+    font-size: 0.85rem;
+    color: var(--c-muted);
+    margin-top: var(--space-3);
+    margin-bottom: 0;
+  }
+  .sys-discovery {
+    margin-top: var(--space-8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    border-style: dashed;
+  }
+  .sys-discovery p {
+    margin-bottom: 0;
+  }
+  .sys-discovery strong {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    white-space: nowrap;
+  }
+
+  /* also build */
+  .sys-also {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--c-border);
+  }
+  .sys-also li {
+    border-bottom: 1px solid var(--c-border);
+    padding-block: var(--space-4);
+    display: flex;
+    gap: var(--space-6);
+    align-items: baseline;
+  }
+  .sys-also-tag {
+    flex: 0 0 var(--space-24);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-cyan);
+  }
+
+  /* cta */
+  .sys-cta {
+    text-align: center;
+  }
+  .sys-cta .section-heading {
+    margin-bottom: var(--space-4);
+  }
+  .sys-cta .section-heading::after {
+    margin-inline: auto;
+  }
+  .sys-cta p {
+    max-width: 42ch;
+    margin-inline: auto;
+    margin-bottom: var(--space-8);
+  }
+
+  /* draw-in animation */
+  .mg-anim .mg-trace {
+    stroke-dasharray: 2600;
+    stroke-dashoffset: 2600;
+    animation: mgDraw 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .mg-anim .mg-fill {
+    opacity: 0;
+    animation: mgFadeIn 0.9s 1.2s ease forwards;
+  }
+  .mg-anim .mg-dot,
+  .mg-anim .mg-tick,
+  .mg-anim .mg-label {
+    opacity: 0;
+    animation: mgFadeIn 0.5s ease forwards;
+  }
+  .mg-anim .mg-1 {
+    animation-delay: 0.8s;
+  }
+  .mg-anim .mg-2 {
+    animation-delay: 1.25s;
+  }
+  .mg-anim .mg-3 {
+    animation-delay: 1.7s;
+  }
+  @keyframes mgDraw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes mgFadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .sys-discovery {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .sys-also li {
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .mg-axis {
+      font-size: 0.7rem;
+    }
+  }
+</style>
+
+<script>
+  function initMomentGraph() {
+    const graph = document.querySelector<HTMLElement>('.moment-graph');
+    if (!graph || graph.dataset.bound) return;
+    graph.dataset.bound = '1';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              graph.classList.add('mg-anim');
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+      observer.observe(graph);
+    } else {
+      graph.classList.add('mg-anim');
+    }
+  }
+
+  initMomentGraph();
+  document.addEventListener('astro:page-load', initMomentGraph);
+</script>

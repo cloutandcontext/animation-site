@@ -19,6 +19,7 @@ export const SITE = {
 // Brand-level nav, shown on every page (the brand hub and the animations service).
 export const MAIN_NAV = [
   { href: '/animations/', label: 'Animations' },
+  { href: '/systems/', label: 'Systems' },
   { href: SITE.social.youtube, label: 'Channel', external: true },
   { href: SITE.social.instagram, label: 'Follow', external: true },
 ];
