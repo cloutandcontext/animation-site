@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { SITE } from '../../data/site';
-
-const bookHref = `mailto:${SITE.email}?subject=${encodeURIComponent('Systems — discovery call')}`;
+import SystemsForm from '../../components/SystemsForm.astro';
 ---
 
 <BaseLayout
@@ -193,7 +191,7 @@ const bookHref = `mailto:${SITE.email}?subject=${encodeURIComponent('Systems —
         <h2>Tell Us What's Coming Next</h2>
       </div>
       <p class="text-muted">An upload, a release, a launch — whatever's next. We'll come back with what the system would do with it.</p>
-      <a href={bookHref} class="btn btn-primary">Book a discovery call</a>
+      <SystemsForm />
     </div>
   </section>
 </BaseLayout>

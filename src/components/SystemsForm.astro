@@ -1,0 +1,120 @@
+---
+import { SITE } from '../data/site';
+---
+
+<form class="systems-form" action={SITE.formspreeEndpoint} method="POST" data-systems-form>
+  <input type="hidden" name="_subject" value="New Systems enquiry from cloutandcontext.com" />
+  <input type="hidden" name="submission_type" value="Systems / discovery call" />
+
+  <!-- Spam honeypot — bots fill this in, humans never see it -->
+  <div class="honeypot-field" aria-hidden="true">
+    <label for="sys_company">Leave this field blank</label>
+    <input type="text" id="sys_company" name="company" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="grid grid-2">
+    <div class="field">
+      <label for="sys_name">Name</label>
+      <input type="text" id="sys_name" name="name" required autocomplete="name" />
+    </div>
+    <div class="field">
+      <label for="sys_email">Email</label>
+      <input type="email" id="sys_email" name="email" required autocomplete="email" />
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="field">
+      <label for="sys_handle">Artist / brand / channel</label>
+      <input type="text" id="sys_handle" name="handle" placeholder="@yourname or company" />
+    </div>
+    <div class="field">
+      <label for="sys_who">Who are you?</label>
+      <select id="sys_who" name="who" required>
+        <option value="">Select one</option>
+        <option value="Creator">Creator</option>
+        <option value="Independent artist">Independent artist</option>
+        <option value="Established artist or brand">Established artist or brand</option>
+        <option value="Label / roster / network">Label / roster / network</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="sys_message">What's coming next?</label>
+    <textarea id="sys_message" name="message" rows="5" required placeholder="An upload, a release, a launch — whatever's next. Tell us about your release cycle."></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block">Book a discovery call</button>
+
+  <p class="form-success text-muted" data-form-success hidden>
+    Thanks — we'll come back within 24 hours with what the system would do with it.
+  </p>
+  <p class="form-error text-muted" data-form-error hidden>
+    Something went wrong sending that — email us directly at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+</form>
+
+<style>
+  .systems-form {
+    max-width: 640px;
+    margin-inline: auto;
+    text-align: left;
+  }
+
+  .form-success {
+    margin-top: var(--space-4);
+    color: var(--c-cyan);
+  }
+
+  .form-error {
+    margin-top: var(--space-4);
+    color: var(--c-magenta);
+  }
+</style>
+
+<script>
+  function initSystemsForm() {
+    const form = document.querySelector<HTMLFormElement>('[data-systems-form]');
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = '1';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const successEl = form.querySelector<HTMLElement>('[data-form-success]');
+      const errorEl = form.querySelector<HTMLElement>('[data-form-error]');
+      errorEl?.setAttribute('hidden', '');
+
+      const data = new FormData(form);
+      // Honeypot tripped — silently pretend success, drop the submission.
+      if (String(data.get('company') ?? '').length > 0) {
+        form.reset();
+        form.hidden = true;
+        successEl?.removeAttribute('hidden');
+        return;
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+
+        if (response.ok) {
+          form.reset();
+          form.hidden = true;
+          successEl?.removeAttribute('hidden');
+        } else {
+          errorEl?.removeAttribute('hidden');
+        }
+      } catch {
+        errorEl?.removeAttribute('hidden');
+      }
+    });
+  }
+
+  initSystemsForm();
+  document.addEventListener('astro:page-load', initSystemsForm);
+</script>
