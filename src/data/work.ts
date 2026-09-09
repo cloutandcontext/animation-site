@@ -16,6 +16,7 @@ export interface WorkItem {
  */
 export const MUSIC_VIDEO_WORK: WorkItem[] = [
   { title: 'Miss Onyx — Jumpy', artist: 'Miss Onyx', package: 'Hook Video', platform: 'youtube', id: '-n81ylHc1Ok' },
+  { title: 'Pinky Notes X Stana — Day Ones', artist: 'Pinky Notes X Stana — Day Ones', package: 'Music Video', platform: 'youtube', id: '1MB6_KSlFKY' },
   { title: 'Miss Onyx', artist: 'Miss Onyx', package: 'Music Video', platform: 'youtube', id: 'tV0hYONwG2g', orientation: 'vertical' },
 ];
 
