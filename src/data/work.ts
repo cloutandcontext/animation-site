@@ -15,8 +15,8 @@ export interface WorkItem {
  * watch?v=) or the Vimeo numeric ID. Clips should set orientation: 'vertical'.
  */
 export const MUSIC_VIDEO_WORK: WorkItem[] = [
-  { title: 'Miss Onyx — Jumpy', artist: 'Miss Onyx — Jumpy', package: 'Hook Video', platform: 'youtube', id: '-n81ylHc1Ok' },
   { title: 'Pinky Notes X Stana — Day Ones', artist: 'Pinky Notes X Stana — Day Ones', package: 'Music Video', platform: 'youtube', id: '1MB6_KSlFKY' },
+  { title: 'Miss Onyx — Jumpy', artist: 'Miss Onyx — Jumpy', package: 'Hook Video', platform: 'youtube', id: '-n81ylHc1Ok' },
   { title: 'Miss Onyx — Anti Social Neighbour', artist: 'Miss Onyx — Anti Social Neighbour', package: 'Music Video', platform: 'youtube', id: 'tV0hYONwG2g', orientation: 'vertical' },
 ];
 
