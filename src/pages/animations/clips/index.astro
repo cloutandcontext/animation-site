@@ -4,6 +4,9 @@ import AnimationsSubNav from '../../../components/AnimationsSubNav.astro';
 import WorkCard from '../../../components/WorkCard.astro';
 import { CLIP_MONTHLY_TIERS, SINGLE_CLIP_PRICE, SINGLE_CLIP_PAYMENT_LINK } from '../../../data/pricing';
 import { CLIP_WORK } from '../../../data/work';
+
+const clipsWide = CLIP_WORK.filter((v) => v.orientation !== 'vertical');
+const clipsVertical = CLIP_WORK.filter((v) => v.orientation === 'vertical');
 ---
 
 <BaseLayout
@@ -89,9 +92,16 @@ import { CLIP_WORK } from '../../../data/work';
         <span class="eyebrow">Example work</span>
         <h2>Recent clips</h2>
       </div>
-      <div class="grid grid-3">
-        {CLIP_WORK.map((item) => <WorkCard item={item} />)}
-      </div>
+      {clipsWide.length > 0 && (
+        <div class="grid grid-2 clips-wide-grid">
+          {clipsWide.map((item) => <WorkCard item={item} />)}
+        </div>
+      )}
+      {clipsVertical.length > 0 && (
+        <div class="grid grid-3">
+          {clipsVertical.map((item) => <WorkCard item={item} />)}
+        </div>
+      )}
     </div>
   </section>
 
@@ -124,6 +134,10 @@ import { CLIP_WORK } from '../../../data/work';
 </BaseLayout>
 
 <style>
+  .clips-wide-grid {
+    margin-bottom: var(--space-8);
+  }
+
   .section-intro {
     max-width: 62ch;
     margin-bottom: var(--space-8);

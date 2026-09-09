@@ -11,6 +11,8 @@ import { SITE } from '../../data/site';
 // Group by shape so vertical (9:16) videos don't sit awkwardly in the 16:9 grid.
 const musicVideosWide = MUSIC_VIDEO_WORK.filter((v) => v.orientation !== 'vertical');
 const musicVideosVertical = MUSIC_VIDEO_WORK.filter((v) => v.orientation === 'vertical');
+const clipsWide = CLIP_WORK.filter((v) => v.orientation !== 'vertical');
+const clipsVertical = CLIP_WORK.filter((v) => v.orientation === 'vertical');
 ---
 
 <BaseLayout title="Animated Music Videos & Social Clips for UK Artists & Creators" description={SITE.animationsDescription}>
@@ -40,9 +42,16 @@ const musicVideosVertical = MUSIC_VIDEO_WORK.filter((v) => v.orientation === 've
       {CLIP_WORK.length > 0 && (
         <>
           <h3 class="clips-subheading">Social clips</h3>
-          <div class="grid grid-3">
-            {CLIP_WORK.map((item) => <WorkCard item={item} />)}
-          </div>
+          {clipsWide.length > 0 && (
+            <div class="grid grid-2 work-grid">
+              {clipsWide.map((item) => <WorkCard item={item} />)}
+            </div>
+          )}
+          {clipsVertical.length > 0 && (
+            <div class="grid grid-3">
+              {clipsVertical.map((item) => <WorkCard item={item} />)}
+            </div>
+          )}
         </>
       )}
     </div>

@@ -19,4 +19,6 @@ export const MUSIC_VIDEO_WORK: WorkItem[] = [
   { title: 'Miss Onyx', artist: 'Miss Onyx', package: 'Music Video', platform: 'youtube', id: 'tV0hYONwG2g', orientation: 'vertical' },
 ];
 
-export const CLIP_WORK: WorkItem[] = [];
+export const CLIP_WORK: WorkItem[] = [
+  { title: 'Loyce', artist: 'Loyce', package: 'Clips Package', platform: 'youtube', id: 'vgxdu3JOLaU', orientation: 'horizontal' },
+];
