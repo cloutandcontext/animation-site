@@ -21,6 +21,6 @@ export const MUSIC_VIDEO_WORK: WorkItem[] = [
 ];
 
 export const CLIP_WORK: WorkItem[] = [
-  { title: 'Loyce', artist: 'Loyce', package: 'Clips Package', platform: 'youtube', id: 'vgxdu3JOLaU', orientation: 'horizontal' },
+  { title: 'Loyce — BkChat Hunger Games', artist: 'Loyce — BkChat Hunger Games', package: 'Clips Package', platform: 'youtube', id: 'vgxdu3JOLaU', orientation: 'horizontal' },
   { title: 'Shotta — Intro Video', artist: 'Shotta — Intro Video', package: 'Clips Package', platform: 'youtube', id: '-zfa6maWVqc', orientation: 'horizontal' },
 ];
