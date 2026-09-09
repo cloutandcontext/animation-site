@@ -16,6 +16,7 @@ export interface WorkItem {
  */
 export const MUSIC_VIDEO_WORK: WorkItem[] = [
   { title: 'Miss Onyx — Jumpy', artist: 'Miss Onyx', package: 'Hook Video', platform: 'youtube', id: '-n81ylHc1Ok' },
+  { title: 'Miss Onyx', artist: 'Miss Onyx', package: 'Music Video', platform: 'youtube', id: 'tV0hYONwG2g', orientation: 'vertical' },
 ];
 
 export const CLIP_WORK: WorkItem[] = [];

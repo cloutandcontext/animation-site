@@ -4,6 +4,9 @@ import AnimationsSubNav from '../../../components/AnimationsSubNav.astro';
 import WorkCard from '../../../components/WorkCard.astro';
 import { MUSIC_VIDEO_TIERS } from '../../../data/pricing';
 import { MUSIC_VIDEO_WORK } from '../../../data/work';
+
+const musicVideosWide = MUSIC_VIDEO_WORK.filter((v) => v.orientation !== 'vertical');
+const musicVideosVertical = MUSIC_VIDEO_WORK.filter((v) => v.orientation === 'vertical');
 ---
 
 <BaseLayout
@@ -50,9 +53,16 @@ import { MUSIC_VIDEO_WORK } from '../../../data/work';
         <span class="eyebrow">Example work</span>
         <h2>See it in motion</h2>
       </div>
-      <div class="grid grid-2">
-        {MUSIC_VIDEO_WORK.map((item) => <WorkCard item={item} />)}
-      </div>
+      {musicVideosWide.length > 0 && (
+        <div class="grid grid-2">
+          {musicVideosWide.map((item) => <WorkCard item={item} />)}
+        </div>
+      )}
+      {musicVideosVertical.length > 0 && (
+        <div class="grid grid-3 mv-vertical-grid">
+          {musicVideosVertical.map((item) => <WorkCard item={item} />)}
+        </div>
+      )}
     </div>
   </section>
 
@@ -96,6 +106,10 @@ import { MUSIC_VIDEO_WORK } from '../../../data/work';
 </BaseLayout>
 
 <style>
+  .mv-vertical-grid {
+    margin-top: var(--space-8);
+  }
+
   .section-intro {
     max-width: 62ch;
     margin-bottom: var(--space-8);
